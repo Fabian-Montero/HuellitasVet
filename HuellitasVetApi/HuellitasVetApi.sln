@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuellitasVetApi", "HuellitasVetApi\HuellitasVetApi.csproj", "{34350247-7E93-4524-B710-903A0702DD9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34350247-7E93-4524-B710-903A0702DD9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34350247-7E93-4524-B710-903A0702DD9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34350247-7E93-4524-B710-903A0702DD9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34350247-7E93-4524-B710-903A0702DD9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C98D693B-E061-45DE-8166-E6DC5D08D079}
+	EndGlobalSection
+EndGlobal

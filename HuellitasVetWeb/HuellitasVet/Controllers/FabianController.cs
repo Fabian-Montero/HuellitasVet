@@ -7,9 +7,14 @@ namespace HuellitasVetWeb.Controllers
         public IActionResult Index()
         {
             return View();
+            // Esto es una prueba
         }
 
         public IActionResult Prueba()
+        {
+            return View();
+        }
+        public IActionResult Prueba2()
         {
             return View();
         }

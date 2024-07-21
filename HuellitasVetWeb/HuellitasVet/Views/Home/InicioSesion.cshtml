@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HuellitasVetWeb.Entidades.Usuario
+@{
     ViewData["Title"] = "Inicio de sesión";
     Layout = "~/Views/Shared/_Layout_Externo.cshtml";
 }
@@ -23,14 +24,22 @@
             <div class="card bg-secondary border-0 mb-0">
 
                 <div class="card-body px-lg-5 py-lg-5">
+                    @if (ViewBag.msj != null)
+                    {
+                        <div class="alert alert-warning text-center" role="alert">
+                            @ViewBag.msj
 
-                    <form role="form">
+                        </div>
+                    }
+
+                    @using (Html.BeginForm("InicioSesion", "Home"))
+                    {
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Correo Electrónico" type="email">
+                                @Html.TextBoxFor(m => m.Correo, new { @type = "email", @class = "form-control", @placeholder = "Email", @maxlength = "50", @required = "required" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -38,14 +47,15 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Contraseña" type="password">
+                                @Html.TextBoxFor(m => m.Contrasenna, new { @type = "password", @class = "form-control", @placeholder = "Contraseña", @maxlength = "12", @required = "required" })
                             </div>
                         </div>
 
                         <div class="text-center">
-                            <button style="background-color:#855CBA; color:white" type="button" class="btn my-4" onclick="Inicio()">Procesar</button>
+                            <button type="submit" style="background-color:#855CBA; color:white" type="button" class="btn my-4" onclick="Inicio()">Procesar</button>
                         </div>
-                    </form>
+                    }
+                    
                 </div>
             </div>
             <div class="row mt-3">

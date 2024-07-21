@@ -6,5 +6,7 @@ namespace HuellitasVetWeb.Models
     {
         Respuesta ConsultarUsuarios();
         Respuesta ConsultarTiposUsuarios();
+        Respuesta RegistrarUsuario(Usuario ent);
+        Respuesta InicioSesion(Usuario ent);
     }
 }

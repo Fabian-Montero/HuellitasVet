@@ -1,18 +1,16 @@
 using HuellitasVet.Models;
+using HuellitasVetWeb.Entidades;
+using HuellitasVetWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace HuellitasVet.Controllers
 {
-    public class HomeController : Controller
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public class HomeController(IUsuarioModel iUsuarioModel) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult InicioSesion()
         {
             return View();
@@ -28,13 +26,19 @@ namespace HuellitasVet.Controllers
             return View();
         }
 
-
-    
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        //Consultar Usuarios
+        [HttpGet]
+        public IActionResult ConsultarUsuarios()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var resp = iUsuarioModel.ConsultarUsuarios();
+
+            if (resp.Codigo == 1)
+            {
+                var datos = JsonSerializer.Deserialize<List<Usuario>>((JsonElement)resp.Contenido!);
+                return View(datos);
+            }
+
+            return View(new List<Usuario>());
         }
     }
 }

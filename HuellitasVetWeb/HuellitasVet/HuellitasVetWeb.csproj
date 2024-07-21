@@ -17,4 +17,13 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\page\jquery\jquery.js" />
+    <None Include="wwwroot\page\jquery\jquery.min.js" />
+    <None Include="wwwroot\page\jquery\jquery.min.map" />
+    <None Include="wwwroot\page\jquery\jquery.slim.js" />
+    <None Include="wwwroot\page\jquery\jquery.slim.min.js" />
+    <None Include="wwwroot\page\jquery\jquery.slim.min.map" />
+  </ItemGroup>
+
 </Project>

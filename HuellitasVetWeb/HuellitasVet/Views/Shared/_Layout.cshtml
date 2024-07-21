@@ -38,10 +38,33 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="examples/icons.html">
+                            <a class="nav-link collapsed" href="#navbar-cliente" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-cliente">
+                                <i class="ni ni-single-02 text-green"></i>
+                                <span class="nav-link-text">Usuarios</span>
+                            </a>
+                            <div class="collapse" id="navbar-cliente">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ConsultarUsuarios","Home")" class="nav-link">Consultar Usuarios</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" href="#navbar-mascotas" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-mascotas">
                                 <i class="ni ni-favourite-28 text-overflow"></i>
                                 <span class="nav-link-text">Mascotas</span>
                             </a>
+                            <div class="collapse" id="navbar-mascotas">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("RegistrarMascota","Especies")" class="nav-link">Registrar Mascota</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ConsultarMascotas","Especies")" class="nav-link">Consultar Mascotas</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="examples/map.html">
@@ -145,6 +168,9 @@
     <script src="~/assets/vendor/chart.js/dist/Chart.min.js"></script>
     <script src="~/assets/vendor/chart.js/dist/Chart.extension.js"></script> 
     <script src="~/assets/js/argon.js?v=1.2.0"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+    <script src="~/js/Consultas.js"></script>
 </body>
 
 </html>

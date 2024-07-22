@@ -1,0 +1,72 @@
+﻿@model List<HuellitasVetWeb.Entidades.Usuario>
+
+@{
+    ViewData["Title"] = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.msj != null)
+{
+    <div class="alert alert-primary" role="alert" style="width: 365px; height: 80px;">
+        @ViewBag.msj
+    </div>
+}
+
+<div class="container-fluid" style="margin-top: 50px;">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="mb-0">Lista de Usuarios</h3>
+        </div>
+        <div class="card-body" style="padding-left: 15px; padding-right: 15px;">
+            <div class="table-responsive">
+                <table id="tabla" class="table table-bordered dataTable" style="width: 100%;">
+                    <thead>
+                        <tr role="row">
+                            <th style="font-size: 12px; font-weight: bold;"><strong>Nombre Completo</strong></th>
+                            <th style="font-size: 12px; font-weight: bold;"><strong>Identificación</strong></th>
+                            <th style="font-size: 12px; font-weight: bold;"><strong>Correo</strong></th>
+                            <th style="font-size: 12px; font-weight: bold;"><strong>Teléfono</strong></th>
+                            <th style="font-size: 12px; font-weight: bold;"><strong>Dirección</strong></th>
+                            <th style="font-size: 12px; font-weight: bold;"><strong>Estado</strong></th>
+                            <th style="font-size: 12px; font-weight: bold;"><strong>Rol</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="odd">
+                                <td>@item.NombreCompleto</td>
+                                <td>@item.Identificacion</td>
+                                <td>@item.Correo</td>
+                                <td>@item.Telefono</td>
+                                <td>@item.Direccion</td>
+                                <td>
+                                    @if (item.Estado == true)
+                                    {
+                                        @:Activo
+                                    }
+                                    else
+                                    {
+                                        @:Inactivo
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.RolId == 1)
+                                    {
+                                        @:Administrador
+                                    }
+                                    else 
+                                    {
+                                        @:Cliente
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/page/jquery/jquery.min.js"></script>

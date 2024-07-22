@@ -1,0 +1,55 @@
+﻿@model List<HuellitasVetWeb.Entidades.Mascota>
+
+@{
+    ViewData["Title"] = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var especies = ViewBag.Especies as Dictionary<int, string> ?? new Dictionary<int, string>();
+    var usuarios = ViewBag.Usuarios as Dictionary<int, string> ?? new Dictionary<int, string>();
+}
+
+@if (ViewBag.msj != null)
+{
+    <div class="alert alert-primary" role="alert" style="width: 365px; height: 80px;">
+        @ViewBag.msj
+    </div>
+}
+
+<div class="container" style="margin-top: 50px;">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="mb-0">Lista de Mascotas</h3>
+        </div>
+        <div class="card-body" style="padding-left: 15px; padding-right: 15px;">
+            <table id="tabla" class="table table-bordered dataTable" style="width: 100%;">
+                <thead>
+                    <tr role="row">
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Nombre</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Raza</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Color</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Edad</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Sexo</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Especie</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Usuario</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="odd">
+                            <td>@item.Nombre</td>
+                            <td>@item.Raza</td>
+                            <td>@item.Color</td>
+                            <td>@item.Edad</td>
+                            <td>@item.Sexo</td>
+                            <td>@(especies.ContainsKey(item.EspecieId) ? especies[item.EspecieId] : "Desconocido")</td>
+                            <td>@(usuarios.ContainsKey(item.UsuarioId) ? usuarios[item.UsuarioId] : "Desconocido")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="~/page/jquery/jquery.min.js"></script>

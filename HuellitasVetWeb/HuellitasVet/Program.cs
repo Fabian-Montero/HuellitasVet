@@ -5,10 +5,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IMascotaModel, MascotaModel>();
 builder.Services.AddScoped<IEspecieModel, EspecieModel>();
 builder.Services.AddScoped<IUsuarioModel, UsuarioModel>();
+builder.Services.AddScoped<IComunModel, ComunModel>();
 
 var app = builder.Build();
 
@@ -20,6 +23,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

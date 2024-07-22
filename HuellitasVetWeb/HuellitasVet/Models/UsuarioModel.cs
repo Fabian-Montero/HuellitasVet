@@ -33,5 +33,48 @@ namespace HuellitasVetWeb.Models
                     return new Respuesta();
             }
         }
+
+        public Respuesta RegistrarUsuario(Usuario ent)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/RegistrarUsuarios";
+
+                JsonContent body = JsonContent.Create(ent);
+
+                var res = httpClient.PostAsync(url, body).Result;
+
+                if (res.IsSuccessStatusCode)
+                {
+                    return res.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                }
+                else
+                {
+                    return new Respuesta();
+                }
+
+
+            }
+        }
+        public Respuesta InicioSesion(Usuario ent)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/IniciarSesion";
+
+                JsonContent body = JsonContent.Create(ent);
+
+                var res = httpClient.PostAsync(url, body).Result;
+
+                if (res.IsSuccessStatusCode)
+                {
+                    return res.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                }
+                else
+                {
+                    return new Respuesta();
+                }
+            }
+        }
     }
 }

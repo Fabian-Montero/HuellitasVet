@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [HuellitasVet]    Script Date: 20/7/2024 21:46:21 ******/
+/****** Object:  Database [HuellitasVet]    Script Date: 7/25/2024 10:27:27 AM ******/
 CREATE DATABASE [HuellitasVet]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -84,7 +84,7 @@ ALTER DATABASE [HuellitasVet] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEA
 GO
 USE [HuellitasVet]
 GO
-/****** Object:  Table [dbo].[Categoria]    Script Date: 20/7/2024 21:46:21 ******/
+/****** Object:  Table [dbo].[Categoria]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -98,7 +98,7 @@ CREATE TABLE [dbo].[Categoria](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Cita]    Script Date: 20/7/2024 21:46:21 ******/
+/****** Object:  Table [dbo].[Cita]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -118,7 +118,7 @@ CREATE TABLE [dbo].[Cita](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Cita_Detalle]    Script Date: 20/7/2024 21:46:21 ******/
+/****** Object:  Table [dbo].[Cita_Detalle]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -137,7 +137,7 @@ CREATE TABLE [dbo].[Cita_Detalle](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Especie]    Script Date: 20/7/2024 21:46:21 ******/
+/****** Object:  Table [dbo].[Especie]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -151,7 +151,7 @@ CREATE TABLE [dbo].[Especie](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Mascota]    Script Date: 20/7/2024 21:46:21 ******/
+/****** Object:  Table [dbo].[Mascota]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -171,7 +171,7 @@ CREATE TABLE [dbo].[Mascota](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Producto]    Script Date: 20/7/2024 21:46:21 ******/
+/****** Object:  Table [dbo].[Producto]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -188,7 +188,7 @@ CREATE TABLE [dbo].[Producto](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Rol]    Script Date: 20/7/2024 21:46:21 ******/
+/****** Object:  Table [dbo].[Rol]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -202,7 +202,7 @@ CREATE TABLE [dbo].[Rol](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Servicio]    Script Date: 20/7/2024 21:46:21 ******/
+/****** Object:  Table [dbo].[Servicio]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -218,7 +218,7 @@ CREATE TABLE [dbo].[Servicio](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Usuario]    Script Date: 20/7/2024 21:46:21 ******/
+/****** Object:  Table [dbo].[Usuario]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -236,80 +236,12 @@ CREATE TABLE [dbo].[Usuario](
  CONSTRAINT [PK_USUARIO_ID] PRIMARY KEY CLUSTERED 
 (
 	[IdUsuario] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-SET IDENTITY_INSERT [dbo].[Categoria] ON 
-GO
-INSERT [dbo].[Categoria] ([IdCategoria], [Descripcion]) VALUES (1, N'Cósmeticos')
-GO
-INSERT [dbo].[Categoria] ([IdCategoria], [Descripcion]) VALUES (2, N'Medicinas')
-GO
-INSERT [dbo].[Categoria] ([IdCategoria], [Descripcion]) VALUES (3, N'Juguetes')
-GO
-INSERT [dbo].[Categoria] ([IdCategoria], [Descripcion]) VALUES (4, N'Alimentos')
-GO
-INSERT [dbo].[Categoria] ([IdCategoria], [Descripcion]) VALUES (5, N'Accesorios')
-GO
-SET IDENTITY_INSERT [dbo].[Categoria] OFF
-GO
-SET IDENTITY_INSERT [dbo].[Especie] ON 
-GO
-INSERT [dbo].[Especie] ([IdEspecie], [Descripcion]) VALUES (1, N'GATOS')
-GO
-INSERT [dbo].[Especie] ([IdEspecie], [Descripcion]) VALUES (2, N'PERROS')
-GO
-INSERT [dbo].[Especie] ([IdEspecie], [Descripcion]) VALUES (3, N'CONEJOS')
-GO
-INSERT [dbo].[Especie] ([IdEspecie], [Descripcion]) VALUES (4, N'ROEDORES')
-GO
-SET IDENTITY_INSERT [dbo].[Especie] OFF
-GO
-SET IDENTITY_INSERT [dbo].[Mascota] ON 
-GO
-INSERT [dbo].[Mascota] ([IdMascota], [Nombre], [Raza], [Color], [Edad], [Sexo], [EspecieId], [UsuarioId]) VALUES (8, N'Max', N'Pastor Alemán', N'Negro', 9, N'M', 2, 3)
-GO
-SET IDENTITY_INSERT [dbo].[Mascota] OFF
-GO
-SET IDENTITY_INSERT [dbo].[Rol] ON 
-GO
-INSERT [dbo].[Rol] ([IdRol], [Nombre]) VALUES (1, N'ADMINISTRADOR')
-GO
-INSERT [dbo].[Rol] ([IdRol], [Nombre]) VALUES (2, N'CLIENTE')
-GO
-SET IDENTITY_INSERT [dbo].[Rol] OFF
-GO
-SET IDENTITY_INSERT [dbo].[Servicio] ON 
-GO
-INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (3, N'Medicina Interna', 50000, N'mi')
-GO
-INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (4, N'Laboratorio', 20000, N'lab')
-GO
-INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (6, N'Ultrasonido', 30000, N'ul')
-GO
-INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (7, N'Cirugia', 20000, N'ciru')
-GO
-INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (9, N'Limpieza Dental', 45000, N'ld')
-GO
-INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (10, N'Grooming', 20000, N'go')
-GO
-INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (11, N'Rayos x', 35000, N'rx')
-GO
-SET IDENTITY_INSERT [dbo].[Servicio] OFF
-GO
-SET IDENTITY_INSERT [dbo].[Usuario] ON 
-GO
-INSERT [dbo].[Usuario] ([IdUsuario], [NombreCompleto], [Identificacion], [Correo], [Telefono], [Direccion], [Contrasenna], [Estado], [RolId]) VALUES (3, N'Tifanny Camacho Monge', N'305070199', N'tcamacho70199@ufide.ac.cr', N'61046045', N'Cartago', N'5555', 1, 1)
-GO
-SET IDENTITY_INSERT [dbo].[Usuario] OFF
-GO
-SET ANSI_PADDING ON
-GO
-/****** Object:  Index [UQ__Usuario__D6F931E54151FEF4]    Script Date: 20/7/2024 21:46:22 ******/
-ALTER TABLE [dbo].[Usuario] ADD UNIQUE NONCLUSTERED 
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
 (
 	[Identificacion] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[Cita]  WITH CHECK ADD  CONSTRAINT [FK_CITA_USUARIO] FOREIGN KEY([UsuarioId])
 REFERENCES [dbo].[Usuario] ([IdUsuario])
@@ -346,7 +278,7 @@ REFERENCES [dbo].[Rol] ([IdRol])
 GO
 ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [FK_USUARIO_ROL]
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarMascotas]    Script Date: 20/7/2024 21:46:22 ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarMascotas]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -365,7 +297,7 @@ BEGIN
       FROM [dbo].[Mascota]
 END
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarTiposEspecies]    Script Date: 20/7/2024 21:46:22 ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarTiposEspecies]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -379,7 +311,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarTiposUsuarios]    Script Date: 20/7/2024 21:46:22 ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarTiposUsuarios]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -393,7 +325,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarUsuarios]    Script Date: 20/7/2024 21:46:22 ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarUsuarios]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -413,7 +345,27 @@ BEGIN
   FROM [dbo].[Usuario]
 END
 GO
-/****** Object:  StoredProcedure [dbo].[RegistrarMascota]    Script Date: 20/7/2024 21:46:22 ******/
+/****** Object:  StoredProcedure [dbo].[IniciarSesion]    Script Date: 7/25/2024 10:27:27 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[IniciarSesion]
+	@Correo			varchar(50),
+	@Contrasenna	varchar(12)
+
+AS
+BEGIN
+	SELECT IdUsuario, Identificacion, NombreCompleto, Correo, U.RolId, Estado, R.Nombre
+	FROM dbo.Usuario U
+	INNER JOIN dbo.Rol R ON U.RolId = R.IdRol
+	WHERE	Correo = @Correo
+	AND		Contrasenna = @Contrasenna
+	AND		Estado = 1
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[RegistrarMascota]    Script Date: 7/25/2024 10:27:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -447,13 +399,11 @@ BEGIN
     );
 END;
 GO
-USE [master]
+/****** Object:  StoredProcedure [dbo].[RegistrarUsuario]    Script Date: 7/25/2024 10:27:27 AM ******/
+SET ANSI_NULLS ON
 GO
-ALTER DATABASE [HuellitasVet] SET  READ_WRITE 
+SET QUOTED_IDENTIFIER ON
 GO
-
-USE HuellitasVet
-
 CREATE PROCEDURE [dbo].[RegistrarUsuario]
 	@NombreCompleto   varchar(255),
 	@Identificacion   varchar(12),
@@ -473,20 +423,8 @@ BEGIN
 	END
 END
 GO
-
-
-CREATE PROCEDURE [dbo].[IniciarSesion]
-	@Correo			varchar(50),
-	@Contrasenna	varchar(12)
-
-AS
-BEGIN
-	SELECT IdUsuario, Identificacion, NombreCompleto, Correo, U.RolId, Estado, R.Nombre
-	FROM dbo.Usuario U
-	INNER JOIN dbo.Rol R ON U.RolId = R.IdRol
-	WHERE	Correo = @Correo
-	AND		Contrasenna = @Contrasenna
-	AND		Estado = 1
-
-END
+USE [master]
 GO
+ALTER DATABASE [HuellitasVet] SET  READ_WRITE 
+GO
+

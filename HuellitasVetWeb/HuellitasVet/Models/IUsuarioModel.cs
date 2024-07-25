@@ -8,5 +8,8 @@ namespace HuellitasVetWeb.Models
         Respuesta ConsultarTiposUsuarios();
         Respuesta RegistrarUsuario(Usuario ent);
         Respuesta InicioSesion(Usuario ent);
+
+
+        Respuesta? ConsultarDatosUsuario(int idusuario);
     }
 }

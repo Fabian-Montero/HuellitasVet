@@ -1,4 +1,4 @@
-﻿@model HuellitasVetWeb.Entidades.Mascota
+﻿@model HuellitasVetWeb.Entidades.Usuario
 @{
     ViewData["Title"] = "Inicio";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,7 +11,7 @@
     </div>
 }
 
-@using (Html.BeginForm("RegistrarMascota", "Especies"))
+@using (Html.BeginForm("MiCuenta", "Home"))
 {
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="col-xl-8">
@@ -19,17 +19,17 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h3 class="mb-0">Registrar Mascota </h3>
+                            <h3 class="mb-0">Perfil </h3>
                         </div>
 
-                       
+
 
 
                     </div>
                 </div>
 
 
-               
+
 
 
                 <div class="card-body">
@@ -54,50 +54,45 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-username">Nombre de la mascota</label>
-                                    @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", @placeholder = "Ingrese el nombre", @required = "required" })
+                                    <label class="form-control-label" for="input-username">Nombre</label>
+                                    @Html.TextBoxFor(m => m.NombreCompleto, new { @class = "form-control", @placeholder = "Nombre", @required = "required" })
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-email">Raza</label>
-                                    @Html.TextBoxFor(m => m.Raza, new { @class = "form-control", @placeholder = "Ingrese la raza", @required = "required" })
+                                    <label class="form-control-label" for="input-email">Identificación</label>
+                                    @Html.TextBoxFor(m => m.Identificacion, new { @class = "form-control", @placeholder = "Identificación", @required = "required" })
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-last-name">Color</label>
-                                    @Html.TextBoxFor(m => m.Color, new { @class = "form-control", @placeholder = "Ingrese el color", @required = "required" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-first-name">Edad</label>
-                                    @Html.TextBoxFor(m => m.Edad, new { @class = "form-control", @placeholder = "Ingrese la edad", @required = "required", type = "number" })
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-last-name">Sexo</label>
-                                    @Html.TextBoxFor(m => m.Sexo, new { @class = "form-control", @placeholder = "Ingrese el sexo", @required = "required" })
+                                    <label class="form-control-label" for="input-last-name">Correo</label>
+                                    @Html.TextBoxFor(m => m.Correo, new { @class = "form-control", @placeholder = "Correo", @required = "required" })
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-first-name">Especie</label>
-                                    @Html.DropDownListFor(m => m.EspecieId, ViewBag.Especies as List<SelectListItem>, new { @class = "form-control", @required = "required" })
+                                    <label class="form-control-label" for="input-first-name">Telefono</label>
+                                    @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control", @placeholder = "Telefono", @required = "required", Type = "int" })
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-last-name">Usuario</label>
-                                    @Html.DropDownListFor(m => m.UsuarioId, ViewBag.Usuarios as List<SelectListItem>, new { @class = "form-control", @required = "required" })
+                                    <label class="form-control-label" for="input-last-name">Dirección</label>
+                                    @Html.TextAreaFor(m => m.Direccion, new { @class = "form-control", @placeholder = "Dirección", @required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                           
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-last-name">Rol</label>
+                                    @Html.TextBoxFor(m => m.Rol, new { @class = "form-control", @placeholder = "Rol", @required = "required", @readonly = "readonly" })
                                 </div>
                             </div>
                         </div>

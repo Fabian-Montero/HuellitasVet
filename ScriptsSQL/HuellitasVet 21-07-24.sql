@@ -241,7 +241,7 @@ CREATE TABLE [dbo].[Usuario](
 GO
 SET IDENTITY_INSERT [dbo].[Categoria] ON 
 GO
-INSERT [dbo].[Categoria] ([IdCategoria], [Descripcion]) VALUES (1, N'Cósmeticos')
+INSERT [dbo].[Categoria] ([IdCategoria], [Descripcion]) VALUES (1, N'Cï¿½smeticos')
 GO
 INSERT [dbo].[Categoria] ([IdCategoria], [Descripcion]) VALUES (2, N'Medicinas')
 GO
@@ -267,7 +267,7 @@ SET IDENTITY_INSERT [dbo].[Especie] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Mascota] ON 
 GO
-INSERT [dbo].[Mascota] ([IdMascota], [Nombre], [Raza], [Color], [Edad], [Sexo], [EspecieId], [UsuarioId]) VALUES (8, N'Max', N'Pastor Alemán', N'Negro', 9, N'M', 2, 3)
+INSERT [dbo].[Mascota] ([IdMascota], [Nombre], [Raza], [Color], [Edad], [Sexo], [EspecieId], [UsuarioId]) VALUES (8, N'Max', N'Pastor Alemï¿½n', N'Negro', 9, N'M', 2, 3)
 GO
 SET IDENTITY_INSERT [dbo].[Mascota] OFF
 GO
@@ -490,3 +490,23 @@ BEGIN
 
 END
 GO
+
+create PROCEDURE [dbo].[ConsultarPerfilUsuario] 
+@idusuario bigint
+AS
+BEGIN
+    SELECT [IdUsuario]
+      ,[NombreCompleto]
+      ,[Identificacion]
+      ,[Correo]
+      ,[Telefono]
+      ,[Direccion]
+      ,[Contrasenna]
+      ,[Estado]
+      ,rol.Nombre as Rol
+	
+  FROM [dbo].[Usuario] users
+  inner join  Rol rol on users.RolId=rol.IdRol
+
+  where users.IdUsuario=@idusuario
+END

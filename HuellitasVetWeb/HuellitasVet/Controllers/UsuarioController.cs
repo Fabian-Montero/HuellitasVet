@@ -82,6 +82,8 @@ namespace HuellitasVetWeb.Controllers
 
         }
 
+        [HttpGet]
+        [FiltroSesiones]
         public IActionResult MiCuenta()
         {
             var idUsuarioSession = HttpContext.Session.GetInt32("CONSECUTIVO");

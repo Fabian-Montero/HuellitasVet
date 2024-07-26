@@ -78,20 +78,6 @@ namespace HuellitasVet.Controllers
             return View();
         }
 
-        //Consultar Usuarios
-        [FiltroSesiones]
-        [HttpGet]
-        public IActionResult ConsultarUsuarios()
-        {
-            var resp = iUsuarioModel.ConsultarUsuarios();
-
-            if (resp.Codigo == 1)
-            {
-                var datos = JsonSerializer.Deserialize<List<Usuario>>((JsonElement)resp.Contenido!);
-                return View(datos);
-            }
-
-            return View(new List<Usuario>());
-        }
+        
     }
 }

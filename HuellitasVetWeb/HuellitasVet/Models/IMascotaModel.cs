@@ -1,4 +1,5 @@
 ﻿using HuellitasVetWeb.Entidades;
+using System.ComponentModel;
 
 namespace HuellitasVetWeb.Models
 {
@@ -6,5 +7,11 @@ namespace HuellitasVetWeb.Models
     {
         Respuesta RegistrarMascota(Mascota entidad);
         Respuesta ConsultarMascotas();
+
+        Respuesta ConsultarMascota(int Id);
+
+        Respuesta EliminarMascota(int id);
+
+        Respuesta ActualizarMascota(Mascota entidad);
     }
 }

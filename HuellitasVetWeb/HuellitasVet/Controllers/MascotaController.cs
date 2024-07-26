@@ -1,15 +1,17 @@
 ﻿using HuellitasVetWeb.Entidades;
 using HuellitasVetWeb.Models;
+using Humanizer.DateTimeHumanizeStrategy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text.Json;
 
 namespace HuellitasVetWeb.Controllers
 {
-    public class EspeciesController(IMascotaModel iMascotaModel, IEspecieModel iEspecieModel, IUsuarioModel iUsuarioModel) : Controller
+    public class MascotaController(IMascotaModel iMascotaModel, IEspecieModel iEspecieModel, IUsuarioModel iUsuarioModel) : Controller
     {
         //Registrar Mascotas
         [HttpGet]
+        [FiltroSesiones]
         public IActionResult RegistrarMascota()
         {
             ConsultarTiposEspecies();
@@ -19,6 +21,7 @@ namespace HuellitasVetWeb.Controllers
         }
 
         [HttpPost]
+        [FiltroSesiones]
         public IActionResult RegistrarMascota(Mascota entidad)
         {
 
@@ -32,7 +35,7 @@ namespace HuellitasVetWeb.Controllers
                 ConsultarTiposEspecies();
                 ConsultarTiposUsuarios();
 
-                return RedirectToAction("RegistrarMascota", "Especies");
+                return RedirectToAction("ConsultarMascotas", "Mascota");
 
                
             }else {
@@ -42,7 +45,7 @@ namespace HuellitasVetWeb.Controllers
                 ConsultarTiposEspecies();
                 ConsultarTiposUsuarios();
 
-                return RedirectToAction("RegistrarMascota", "Especies");
+                return View();
 
             }
 
@@ -51,6 +54,7 @@ namespace HuellitasVetWeb.Controllers
 
         //Consultar Mascotas
         [HttpGet]
+        [FiltroSesiones]
         public IActionResult ConsultarMascotas()
         {
             var resp = iMascotaModel.ConsultarMascotas();
@@ -77,6 +81,55 @@ namespace HuellitasVetWeb.Controllers
             return View(new List<Mascota>());
         }
 
+        [HttpGet]
+        [FiltroSesiones]
+        public IActionResult ActualizarMascota(int id)
+        {
+
+            var resp = iMascotaModel.ConsultarMascota(id);
+            ConsultarTiposEspecies();
+            ConsultarTiposUsuarios();
+
+            if (resp.Codigo == 1) { 
+                var datos = JsonSerializer.Deserialize<Mascota>((JsonElement)resp.Contenido!);
+                return View(datos);
+            }
+            return View(new Mascota());
+        }
+
+        [HttpPost]
+        [FiltroSesiones]
+        public IActionResult ActualizarMascota(Mascota entidad)
+        {
+            var resp = iMascotaModel.ActualizarMascota(entidad);
+
+            if (resp.Codigo == 1)
+                return RedirectToAction("ConsultarMascotas", "Mascota");
+
+            ViewBag.msj = resp.Mensaje;
+            ConsultarTiposEspecies();
+            ConsultarTiposUsuarios();
+            return RedirectToAction("ConsultarMascotas", "Mascota");
+        }
+
+        [HttpGet]
+        [FiltroSesiones]
+        public IActionResult EliminarMascota(int id)
+        {
+
+            var resp = iMascotaModel.EliminarMascota(id);
+
+            if (resp.Codigo == 1)
+            {
+                return RedirectToAction("ConsultarMascotas", "Mascota");
+            }
+            else {
+                ViewBag.MsjPantalla = resp.Mensaje;
+                return RedirectToAction("ConsultarMascotas", "Mascota");
+            }
+
+        }
+
         //---> Consultas para DropDown
         private void ConsultarTiposEspecies()
         {
@@ -97,6 +150,5 @@ namespace HuellitasVetWeb.Controllers
             ViewBag.Usuarios = listaUsuarios;
         }
 
-        //Ultima prueba fabian
     }
 }

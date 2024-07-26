@@ -9,6 +9,11 @@ namespace HuellitasVetWeb.Models
         Respuesta RegistrarUsuario(Usuario ent);
         Respuesta InicioSesion(Usuario ent);
 
+        Respuesta ConsultarUsuario(int Id);
+
+        Respuesta ActualizarUsuario(Usuario entidad);
+
+        Respuesta EliminarUsuario(int Id);
 
         Respuesta? ConsultarDatosUsuario(int idusuario);
     }

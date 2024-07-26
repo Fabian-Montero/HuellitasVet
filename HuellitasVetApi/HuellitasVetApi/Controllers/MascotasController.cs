@@ -67,5 +67,85 @@ namespace HuellitasVetApi.Controllers
                 }
             }
         }
+        [HttpGet]
+        [Route("ConsultarMascota")]
+        public async Task<IActionResult> ConsultarMascota(int Id)
+        {
+            Respuesta resp = new Respuesta();
+
+            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var result = await context.QueryFirstOrDefaultAsync<Mascota>("ConsultarMascota", new {Id }, commandType: CommandType.StoredProcedure);
+
+                if (result != null)
+                {
+                    resp.Codigo = 1;
+                    resp.Mensaje = "OK";
+                    resp.Contenido = result;
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Codigo = 0;
+                    resp.Mensaje = "No hay mascotas registradas en este momento";
+                    resp.Contenido = false;
+                    return Ok(resp);
+                }
+            }
+        }
+
+        [HttpDelete]
+        [Route("EliminarMascota")]
+        public async Task<IActionResult> EliminarMascota(int Id)
+        {
+            Respuesta resp = new Respuesta();
+
+            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var result = await context.ExecuteAsync("EliminarMascota", new { Id }, commandType: CommandType.StoredProcedure);
+
+                if (result > 0)
+                {
+                    resp.Codigo = 1;
+                    resp.Mensaje = "OK";
+                    resp.Contenido = result;     
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Codigo = 0;
+                    resp.Mensaje = "Eror al eliminar la mascota";
+                    resp.Contenido = false;
+                    return Ok(resp);
+                }
+            }
+        }
+
+        [HttpPut]
+        [Route("ActualizarMascota")]
+        public async Task<IActionResult> ActualizarMascota(Mascota entidad)
+        {
+            Respuesta resp = new Respuesta();
+
+            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var result = await context.ExecuteAsync("ActualizarMascota", new { entidad.Nombre, entidad.Raza, entidad.Color, entidad.Edad, entidad.Sexo, entidad.EspecieId, entidad.UsuarioId, entidad.IdMascota }, commandType: CommandType.StoredProcedure);
+
+                if (result > 0)
+                {
+                    resp.Codigo = 1;
+                    resp.Mensaje = "OK";
+                    resp.Contenido = true;
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Codigo = 0;
+                    resp.Mensaje = "Error al actualizar la mascota";
+                    resp.Contenido = false;
+                    return Ok(resp);
+                }
+            }
+        }
     }
 }

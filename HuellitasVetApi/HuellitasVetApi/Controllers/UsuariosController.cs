@@ -121,6 +121,70 @@ namespace HuellitasVetApi.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("ConsultarUsuario")]
+        public async Task<IActionResult> ConsultarUsuario(int Id)
+        {
+            Respuesta resp = new Respuesta();
+
+            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var result = await context.QueryFirstOrDefaultAsync<Usuario>("ConsultarUsuario", new {Id }, commandType: CommandType.StoredProcedure);
+
+                if (result != null)
+                {
+                    resp.Codigo = 1;
+                    resp.Mensaje = "OK";
+                    resp.Contenido = result;
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Codigo = 0;
+                    resp.Mensaje = "Error al consultar el usuario";
+                    resp.Contenido = false;
+                    return Ok(resp);
+                }
+            }
+        }
+
+        [HttpPut]
+        [Route("ActualizarUsuario")]
+        public async Task<IActionResult> ActualizarUsuario(Usuario entidad)
+        {
+            Respuesta resp = new Respuesta();
+
+            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var result = await context.ExecuteAsync("ActualizarUsuario", new {
+                    entidad.NombreCompleto,
+                    entidad.Identificacion,
+                    entidad.Correo,
+                    entidad.Telefono,
+                    entidad.Direccion,
+                    entidad.Estado,
+                    entidad.RolId,
+                    entidad.IdUsuario
+                }, commandType: CommandType.StoredProcedure);
+
+                if (result > 0)
+                {
+                    resp.Codigo = 1;
+                    resp.Mensaje = "OK";
+                    resp.Contenido = true;
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Codigo = 0;
+                    resp.Mensaje = "Error al actualizar el usuario";
+                    resp.Contenido = false;
+                    return Ok(resp);
+                }
+            }
+        }
+
+
         //Consultar Tipos Usuarios
         [HttpGet]
         [Route("ConsultarTiposUsuarios")]
@@ -143,6 +207,33 @@ namespace HuellitasVetApi.Controllers
                 {
                     resp.Codigo = 0;
                     resp.Mensaje = "No hay usuarios registrados en este momento";
+                    resp.Contenido = false;
+                    return Ok(resp);
+                }
+            }
+        }
+
+        [HttpDelete]
+        [Route("EliminarUsuario")]
+        public async Task<IActionResult> EliminarUsuario(int Id)
+        {
+            Respuesta resp = new Respuesta();
+
+            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var result = await context.ExecuteAsync("EliminarUsuario", new { Id }, commandType: CommandType.StoredProcedure);
+
+                if (result > 0)
+                {
+                    resp.Codigo = 1;
+                    resp.Mensaje = "OK";
+                    resp.Contenido = result;
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Codigo = 0;
+                    resp.Mensaje = "Eror al eliminar el usuario";
                     resp.Contenido = false;
                     return Ok(resp);
                 }

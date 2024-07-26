@@ -26,4 +26,8 @@
     <None Include="wwwroot\page\jquery\jquery.slim.min.map" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Especies\" />
+  </ItemGroup>
+
 </Project>

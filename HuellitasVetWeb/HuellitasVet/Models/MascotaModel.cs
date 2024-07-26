@@ -32,5 +32,50 @@ namespace HuellitasVetWeb.Models
                     return new Respuesta();
             }
         }
+
+        public Respuesta ConsultarMascota(int Id)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/ConsultarMascota?Id=" + Id;
+
+                var resp = httpClient.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
+            }
+        }
+
+        public Respuesta EliminarMascota(int Id)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/EliminarMascota?Id=" + Id;
+
+                var resp = httpClient.DeleteAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
+            }
+        }
+
+        public Respuesta ActualizarMascota(Mascota entidad)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/ActualizarMascota";
+                JsonContent body = JsonContent.Create(entidad);
+                var resp = httpClient.PutAsync(url, body).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
+            }
+        }
     }
 }

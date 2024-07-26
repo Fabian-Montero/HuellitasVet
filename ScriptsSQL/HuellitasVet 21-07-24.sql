@@ -236,8 +236,82 @@ CREATE TABLE [dbo].[Usuario](
  CONSTRAINT [PK_USUARIO_ID] PRIMARY KEY CLUSTERED 
 (
 	[IdUsuario] ASC
+<<<<<<< HEAD
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Categoria] ON 
+GO
+INSERT [dbo].[Categoria] ([IdCategoria], [Descripcion]) VALUES (1, N'C�smeticos')
+GO
+INSERT [dbo].[Categoria] ([IdCategoria], [Descripcion]) VALUES (2, N'Medicinas')
+GO
+INSERT [dbo].[Categoria] ([IdCategoria], [Descripcion]) VALUES (3, N'Juguetes')
+GO
+INSERT [dbo].[Categoria] ([IdCategoria], [Descripcion]) VALUES (4, N'Alimentos')
+GO
+INSERT [dbo].[Categoria] ([IdCategoria], [Descripcion]) VALUES (5, N'Accesorios')
+GO
+SET IDENTITY_INSERT [dbo].[Categoria] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Especie] ON 
+GO
+INSERT [dbo].[Especie] ([IdEspecie], [Descripcion]) VALUES (1, N'GATOS')
+GO
+INSERT [dbo].[Especie] ([IdEspecie], [Descripcion]) VALUES (2, N'PERROS')
+GO
+INSERT [dbo].[Especie] ([IdEspecie], [Descripcion]) VALUES (3, N'CONEJOS')
+GO
+INSERT [dbo].[Especie] ([IdEspecie], [Descripcion]) VALUES (4, N'ROEDORES')
+GO
+SET IDENTITY_INSERT [dbo].[Especie] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Mascota] ON 
+GO
+INSERT [dbo].[Mascota] ([IdMascota], [Nombre], [Raza], [Color], [Edad], [Sexo], [EspecieId], [UsuarioId]) VALUES (8, N'Max', N'Pastor Alem�n', N'Negro', 9, N'M', 2, 3)
+GO
+SET IDENTITY_INSERT [dbo].[Mascota] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Rol] ON 
+GO
+INSERT [dbo].[Rol] ([IdRol], [Nombre]) VALUES (1, N'ADMINISTRADOR')
+GO
+INSERT [dbo].[Rol] ([IdRol], [Nombre]) VALUES (2, N'CLIENTE')
+GO
+SET IDENTITY_INSERT [dbo].[Rol] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Servicio] ON 
+GO
+INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (3, N'Medicina Interna', 50000, N'mi')
+GO
+INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (4, N'Laboratorio', 20000, N'lab')
+GO
+INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (6, N'Ultrasonido', 30000, N'ul')
+GO
+INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (7, N'Cirugia', 20000, N'ciru')
+GO
+INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (9, N'Limpieza Dental', 45000, N'ld')
+GO
+INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (10, N'Grooming', 20000, N'go')
+GO
+INSERT [dbo].[Servicio] ([IdServicio], [Descripcion], [Precio], [RutaImagen]) VALUES (11, N'Rayos x', 35000, N'rx')
+GO
+SET IDENTITY_INSERT [dbo].[Servicio] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Usuario] ON 
+GO
+INSERT [dbo].[Usuario] ([IdUsuario], [NombreCompleto], [Identificacion], [Correo], [Telefono], [Direccion], [Contrasenna], [Estado], [RolId]) VALUES (3, N'Tifanny Camacho Monge', N'305070199', N'tcamacho70199@ufide.ac.cr', N'61046045', N'Cartago', N'5555', 1, 1)
+GO
+SET IDENTITY_INSERT [dbo].[Usuario] OFF
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UQ__Usuario__D6F931E54151FEF4]    Script Date: 20/7/2024 21:46:22 ******/
+ALTER TABLE [dbo].[Usuario] ADD UNIQUE NONCLUSTERED 
+=======
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
 UNIQUE NONCLUSTERED 
+>>>>>>> af89f2b5b49e571c65876b04231ed840c9cfb4ab
 (
 	[Identificacion] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
@@ -428,3 +502,42 @@ GO
 ALTER DATABASE [HuellitasVet] SET  READ_WRITE 
 GO
 
+<<<<<<< HEAD
+
+CREATE PROCEDURE [dbo].[IniciarSesion]
+	@Correo			varchar(50),
+	@Contrasenna	varchar(12)
+
+AS
+BEGIN
+	SELECT IdUsuario, Identificacion, NombreCompleto, Correo, U.RolId, Estado, R.Nombre
+	FROM dbo.Usuario U
+	INNER JOIN dbo.Rol R ON U.RolId = R.IdRol
+	WHERE	Correo = @Correo
+	AND		Contrasenna = @Contrasenna
+	AND		Estado = 1
+
+END
+GO
+
+create PROCEDURE [dbo].[ConsultarPerfilUsuario] 
+@idusuario bigint
+AS
+BEGIN
+    SELECT [IdUsuario]
+      ,[NombreCompleto]
+      ,[Identificacion]
+      ,[Correo]
+      ,[Telefono]
+      ,[Direccion]
+      ,[Contrasenna]
+      ,[Estado]
+      ,rol.Nombre as Rol
+	
+  FROM [dbo].[Usuario] users
+  inner join  Rol rol on users.RolId=rol.IdRol
+
+  where users.IdUsuario=@idusuario
+END
+=======
+>>>>>>> af89f2b5b49e571c65876b04231ed840c9cfb4ab

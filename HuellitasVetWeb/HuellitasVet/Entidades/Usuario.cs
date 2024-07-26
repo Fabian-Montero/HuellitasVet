@@ -12,5 +12,7 @@
         public string? Token { get; set; }
         public bool? Estado { get; set; }
         public int RolId { get; set; }
+
+        public string? Rol { get; set; }
     }
 }

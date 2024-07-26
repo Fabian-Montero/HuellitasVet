@@ -25,12 +25,28 @@ namespace HuellitasVetWeb.Controllers
             var resp = iMascotaModel.RegistrarMascota(entidad);
 
             if (resp.Codigo == 1)
-                return RedirectToAction("Inicio", "Home");
+            {
+                TempData["SuccessMessage"] = "El registro fue exitoso.";
 
-            ViewBag.msj = resp.Mensaje;
-            ConsultarTiposEspecies();
-            ConsultarTiposUsuarios();
-            return View();
+                ViewBag.msj = resp.Mensaje;
+                ConsultarTiposEspecies();
+                ConsultarTiposUsuarios();
+
+                return RedirectToAction("RegistrarMascota", "Especies");
+
+               
+            }else {
+                TempData["ErrorMessage"] = "Hubo un error en el registro.";
+
+                ViewBag.msj = resp.Mensaje;
+                ConsultarTiposEspecies();
+                ConsultarTiposUsuarios();
+
+                return RedirectToAction("RegistrarMascota", "Especies");
+
+            }
+
+          
         }
 
         //Consultar Mascotas

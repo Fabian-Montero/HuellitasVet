@@ -520,6 +520,7 @@ BEGIN
   where users.IdUsuario=@idusuario
 END
 
+
 go
 
 USE [master]

@@ -499,6 +499,29 @@ BEGIN
 	END
 END
 GO
+
+create PROCEDURE [dbo].[ConsultarPerfilUsuario] 
+@idusuario bigint
+AS
+BEGIN
+    SELECT [IdUsuario]
+      ,[NombreCompleto]
+      ,[Identificacion]
+      ,[Correo]
+      ,[Telefono]
+      ,[Direccion]
+      ,[Contrasenna]
+      ,[Estado]
+      ,rol.Nombre as Rol
+	
+  FROM [dbo].[Usuario] users
+  inner join  Rol rol on users.RolId=rol.IdRol
+
+  where users.IdUsuario=@idusuario
+END
+
+go
+
 USE [master]
 GO
 ALTER DATABASE [HuellitasVet] SET  READ_WRITE 

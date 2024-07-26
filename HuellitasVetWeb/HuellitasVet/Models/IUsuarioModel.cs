@@ -14,5 +14,7 @@ namespace HuellitasVetWeb.Models
         Respuesta ActualizarUsuario(Usuario entidad);
 
         Respuesta EliminarUsuario(int Id);
+
+        Respuesta? ConsultarDatosUsuario(int idusuario);
     }
 }

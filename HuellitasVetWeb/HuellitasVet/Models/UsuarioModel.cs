@@ -1,4 +1,5 @@
 ﻿using HuellitasVetWeb.Entidades;
+using System.Net.Http;
 
 namespace HuellitasVetWeb.Models
 {
@@ -120,6 +121,17 @@ namespace HuellitasVetWeb.Models
                 else
                     return new Respuesta();
             }
+        }
+
+        public Respuesta? ConsultarDatosUsuario(int idusuario)
+        {
+            string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/ConsultarInformacionUsuario?idusuario=" + idusuario;
+            var solicitud = httpClient.GetAsync(url).Result;
+
+            if (solicitud.IsSuccessStatusCode)
+                return solicitud.Content.ReadFromJsonAsync<Respuesta>().Result;
+            else
+                return new Respuesta();
         }
     }
 }

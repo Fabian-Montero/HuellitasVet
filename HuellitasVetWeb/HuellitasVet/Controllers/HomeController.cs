@@ -20,7 +20,7 @@ namespace HuellitasVet.Controllers
         {
             ent.Contrasenna = iComunModel.Encrypt(ent.Contrasenna!);
             var res = iUsuarioModel.InicioSesion(ent);
-            if(res.Codigo == 1)
+            if (res.Codigo == 1)
             {
 
                 var datos = JsonSerializer.Deserialize<Usuario>((JsonElement)res.Contenido!);
@@ -39,7 +39,7 @@ namespace HuellitasVet.Controllers
             }
         }
 
-        
+
 
         [HttpGet]
         public IActionResult Registro()
@@ -55,12 +55,18 @@ namespace HuellitasVet.Controllers
 
             if (res.Codigo == 1)
             {
-                return RedirectToAction("Inicio", "Home");
+                TempData["SuccessMessage"] = "Registro existoso.Inicie sesión";
+
+                ViewBag.msj = res.Mensaje;
+                return RedirectToAction("InicioSesion", "Home");
+
+
             }
             else
             {
-                ViewBag.msj = res.Mensaje;
-                return View();
+                TempData["ErrorMessage"] = "Hubo un error en el registro.";
+                return RedirectToAction("Registro", "Home");
+
             }
         }
         [FiltroSesiones]

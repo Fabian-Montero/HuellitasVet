@@ -259,5 +259,37 @@ namespace HuellitasVetApi.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+
+        [HttpGet]
+        [Route("ConsultarInformacionUsuario")]
+        public async Task<IActionResult> ConsultarHorarioDisponible(long idusuario)
+        {
+            Respuesta resp = new Respuesta();
+
+            using (var contexto = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@idusuario", idusuario);
+
+                var request = (await contexto.QueryAsync<Usuario>("ConsultarPerfilUsuario", parameters, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+
+                if (request != null && request.Count > 0)
+                {
+                    resp.Codigo = 1;
+                    resp.Mensaje = "OK";
+                    resp.Contenido = request;
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Codigo = 0;
+                    resp.Mensaje = "No se ha encontrado la información";
+                    return Ok(resp);
+                }
+            }
+        }
+
     }
-}
+    }
+

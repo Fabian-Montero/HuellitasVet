@@ -663,8 +663,91 @@ BEGIN
 		VALUES(@NombreCompleto, @Identificacion, @Correo, @Telefono, @Direccion, @Contrasenna, @Rol, @Estado)
 	END
 END
+
+USE [HuellitasVet]
+GO
+/****** Object:  StoredProcedure [dbo].[RegistrarEspecie]    Script Date: 28/7/2024 10:27:32 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[RegistrarEspecie]
+    @Descripcion VARCHAR(200)  
+AS
+BEGIN
+    INSERT INTO [dbo].[Especie] (
+        [Descripcion]
+    ) VALUES (
+        @Descripcion
+    );
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[EliminarEspecie]    Script Date: 28/7/2024 10:30:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[EliminarEspecie]
+@Id bigint
+AS
+BEGIN
+
+DELETE FROM Especie
+      WHERE IdEspecie = @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ActualizarEspecie]    Script Date: 28/7/2024 10:32:53 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ActualizarEspecie]
+    @Descripcion VARCHAR(200),
+	@IdEspecie BIGINT
+AS
+BEGIN
+    UPDATE [dbo].[Especie] 
+    SET [Descripcion] = COALESCE(@Descripcion, [Descripcion])
+      
+ WHERE IdEspecie = @IdEspecie
+END;
+GO
+
+/****** Object:  StoredProcedure [dbo].[ConsultarEspecie]    Script Date: 28/7/2024 10:37:23 PM ******/
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ConsultarEspecie]
+@Id bigint
+AS
+BEGIN
+    SELECT [IdEspecie]
+          ,[Descripcion]
+          
+      FROM [dbo].[Especie]
+	  WHERE IdEspecie = @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarEspecies]    Script Date: 28/7/2024 10:40:46 PM ******/
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ConsultarEspecies]
+AS
+BEGIN
+    SELECT [IdEspecie]
+          ,[Descripcion]
+          
+      FROM [dbo].[Especie]
+END
+------------------
 GO
 USE [master]
 GO
 ALTER DATABASE [HuellitasVet] SET  READ_WRITE 
 GO
+

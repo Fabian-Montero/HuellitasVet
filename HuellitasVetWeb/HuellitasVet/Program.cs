@@ -13,6 +13,7 @@ builder.Services.AddScoped<IEspecieModel, EspecieModel>();
 builder.Services.AddScoped<IUsuarioModel, UsuarioModel>();
 builder.Services.AddScoped<IComunModel, ComunModel>();
 builder.Services.AddScoped<IRolesModel, RolesModel>();
+builder.Services.AddScoped<ICategoriaModel, CategoriaModel>();
 
 var app = builder.Build();
 

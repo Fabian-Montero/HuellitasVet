@@ -5,21 +5,21 @@ using System.Text.Json;
 
 namespace HuellitasVetWeb.Controllers
 {
-    public class RolController(IRolesModel iRolesModel) : Controller
+    public class CategoriaController(ICategoriaModel iCategoriaModel) : Controller
     {
-        //Registrar Rol
+        //Registrar Categoría
         [HttpGet]
         [FiltroSesiones]
-        public IActionResult RegistrarRol()
+        public IActionResult RegistrarCategoria()
         {
             return View();
         }
 
         [HttpPost]
         [FiltroSesiones]
-        public IActionResult RegistrarRol(Rol entidad)
+        public IActionResult RegistrarCategoria(Categoria entidad)
         {
-            var resp = iRolesModel.RegistrarRol(entidad);
+            var resp = iCategoriaModel.RegistrarCategoria(entidad);
 
             if (resp.Codigo == 1)
             {
@@ -27,7 +27,7 @@ namespace HuellitasVetWeb.Controllers
 
                 ViewBag.msj = resp.Mensaje;
 
-                return RedirectToAction("ConsultarRoles", "Rol");
+                return RedirectToAction("ConsultarCategorias", "Categoria");
 
             }
             else
@@ -39,48 +39,49 @@ namespace HuellitasVetWeb.Controllers
                 return View(entidad);
 
             }
+
         }
 
-        //Consultar Roles
+        //Consultar Categorías
         [HttpGet]
         [FiltroSesiones]
-        public IActionResult ConsultarRoles()
+        public IActionResult ConsultarCategorias()
         {
-            var resp = iRolesModel.ConsultarRoles();
+            var resp = iCategoriaModel.ConsultarCategorias();
 
             if (resp.Codigo == 1)
             {
-                var datos = JsonSerializer.Deserialize<List<Rol>>((JsonElement)resp.Contenido!);
+                var datos = JsonSerializer.Deserialize<List<Categoria>>((JsonElement)resp.Contenido!);
                 return View(datos);
             }
 
-            return View(new List<Rol>());
+            return View(new List<Categoria>());
         }
 
-        //Actualizar Rol
+        //Actualizar Categoría
         [HttpGet]
         [FiltroSesiones]
-        public IActionResult ActualizarRol(int id)
+        public IActionResult ActualizarCategoria(int id)
         {
 
-            var resp = iRolesModel.ConsultarRol(id);
+            var resp = iCategoriaModel.ConsultarCategoria(id);
 
             if (resp.Codigo == 1)
             {
-                var datos = JsonSerializer.Deserialize<Rol>((JsonElement)resp.Contenido!);
+                var datos = JsonSerializer.Deserialize<Categoria>((JsonElement)resp.Contenido!);
                 return View(datos);
             }
-            return View(new Rol());
+            return View(new Categoria());
         }
 
         [HttpPost]
         [FiltroSesiones]
-        public IActionResult ActualizarRol(Rol entidad)
+        public IActionResult ActualizarCategoria(Categoria entidad)
         {
-            var resp = iRolesModel.ActualizarRol(entidad);
+            var resp = iCategoriaModel.ActualizarCategoria(entidad);
 
             if (resp.Codigo == 1)
-                return RedirectToAction("ConsultarRoles", "Rol");
+                return RedirectToAction("ConsultarCategorias", "Categoria");
 
             ViewBag.msj = resp.Mensaje;
             return View(entidad);
@@ -88,19 +89,19 @@ namespace HuellitasVetWeb.Controllers
 
         [HttpGet]
         [FiltroSesiones]
-        public IActionResult EliminarRol(int id)
+        public IActionResult EliminarCategoria(int id)
         {
 
-            var resp = iRolesModel.EliminarRol(id);
+            var resp = iCategoriaModel.EliminarCategoria(id);
 
             if (resp.Codigo == 1)
             {
-                return RedirectToAction("ConsultarRoles", "Rol");
+                return RedirectToAction("ConsultarCategorias", "Categoria");
             }
             else
             {
                 ViewBag.MsjPantalla = resp.Mensaje;
-                return RedirectToAction("ConsultarRoles", "Rol");
+                return RedirectToAction("ConsultarCategorias", "Categoria");
             }
 
         }

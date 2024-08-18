@@ -1,0 +1,55 @@
+﻿@model List<HuellitasVetWeb.Entidades.Categoria>
+
+@{
+    ViewData["Title"] = "ConsultarCategorias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@if (ViewBag.msj != null)
+{
+    <div class="alert alert-primary" role="alert" style="width: 365px; height: 80px;">
+        @ViewBag.msj
+    </div>
+}
+
+<div class="container" style="margin-top: 50px;">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="mb-0">Lista de Categorías</h3>
+        </div>
+        <div class="card-body" style="padding-left: 15px; padding-right: 15px;">
+            <table id="tabla" class="table table-bordered dataTable" style="width: 100%;">
+                <thead>
+                    <tr role="row">
+                        <th style="font-size: 12px; font-weight: bold;"><strong>ID</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Descripción</strong></th>
+
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Acciones</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="odd">
+                            <td style="vertical-align: middle">@item.IdCategoria</td>
+                            <td style="vertical-align: middle">@item.Descripcion</td>
+
+                            <td style="text-align: center; vertical-align: middle">
+                                <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 70px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("ActualizarCategoria","Categoria",new { id = item.IdCategoria}))">
+                                    Editar
+                                </a>
+                                <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 80px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("EliminarCategoria","Categoria",new { id = item.IdCategoria}))">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="~/page/jquery/jquery.min.js"></script>
+

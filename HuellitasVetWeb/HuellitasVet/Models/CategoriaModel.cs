@@ -1,28 +1,16 @@
 ﻿using HuellitasVetWeb.Entidades;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http;
 
 namespace HuellitasVetWeb.Models
 {
-    public class RolesModel(HttpClient httpClient, IConfiguration iConfiguration) : IRolesModel
+    public class CategoriaModel(HttpClient httpClient, IConfiguration iConfiguration) : ICategoriaModel
     {
-        public Respuesta ConsultarTiposRoles()
+        public Respuesta RegistrarCategoria(Categoria entidad)
         {
             using (httpClient)
             {
-                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Roles/ConsultarTiposRoles";
-
-                var resp = httpClient.GetAsync(url).Result;
-
-                if (resp.IsSuccessStatusCode)
-                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
-                else
-                    return new Respuesta();
-            }
-        }
-        public Respuesta RegistrarRol(Rol entidad)
-        {
-            using (httpClient)
-            {
-                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Roles/RegistrarRol";
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Categoria/RegistrarCategoria";
                 JsonContent body = JsonContent.Create(entidad);
                 var resp = httpClient.PostAsync(url, body).Result;
 
@@ -33,11 +21,11 @@ namespace HuellitasVetWeb.Models
             }
         }
 
-        public Respuesta ConsultarRoles()
+        public Respuesta ConsultarCategorias()
         {
             using (httpClient)
             {
-                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Roles/ConsultarRoles";
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Categoria/ConsultarCategorias";
 
                 var resp = httpClient.GetAsync(url).Result;
 
@@ -47,11 +35,12 @@ namespace HuellitasVetWeb.Models
                     return new Respuesta();
             }
         }
-        public Respuesta ConsultarRol(int Id)
+
+        public Respuesta ConsultarCategoria(int Id)
         {
             using (httpClient)
             {
-                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Roles/ConsultarRol?Id=" + Id;
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Categoria/ConsultarCategoria?Id=" + Id;
 
                 var resp = httpClient.GetAsync(url).Result;
 
@@ -61,11 +50,12 @@ namespace HuellitasVetWeb.Models
                     return new Respuesta();
             }
         }
-        public Respuesta ActualizarRol(Rol entidad)
+
+        public Respuesta ActualizarCategoria(Categoria entidad)
         {
             using (httpClient)
             {
-                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Roles/ActualizarRol";
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Categoria/ActualizarCategoria";
                 JsonContent body = JsonContent.Create(entidad);
                 var resp = httpClient.PutAsync(url, body).Result;
 
@@ -75,11 +65,12 @@ namespace HuellitasVetWeb.Models
                     return new Respuesta();
             }
         }
-        public Respuesta EliminarRol(int Id)
+
+        public Respuesta EliminarCategoria(int Id)
         {
             using (httpClient)
             {
-                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Roles/EliminarRol?Id=" + Id;
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Categoria/EliminarCategoria?Id=" + Id;
 
                 var resp = httpClient.DeleteAsync(url).Result;
 

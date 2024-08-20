@@ -2,53 +2,26 @@
 using HuellitasVetApi.Entidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System.Data;
 
 namespace HuellitasVetApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolesController(IConfiguration iConfiguration) : ControllerBase
+    public class CategoriaController(IConfiguration iConfiguration) : ControllerBase
     {
-        [HttpGet]
-        [Route("ConsultarTiposRoles")]
-        public async Task<IActionResult> ConsultarTiposRoles()
-        {
-            Respuesta resp = new Respuesta();
-
-            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
-            {
-                var result = await context.QueryAsync<SelectListItem>("ConsultarTiposRoles", new { }, commandType: CommandType.StoredProcedure);
-
-                if (result.Count() > 0)
-                {
-                    resp.Codigo = 1;
-                    resp.Mensaje = "OK";
-                    resp.Contenido = result;
-                    return Ok(resp);
-                }
-                else
-                {
-                    resp.Codigo = 0;
-                    resp.Mensaje = "No hay roles registrados en este momento";
-                    resp.Contenido = false;
-                    return Ok(resp);
-                }
-            }
-        }
-
-        //Registrar Rol
+        //Registrar Categoría
         [HttpPost]
-        [Route("RegistrarRol")]
-        public async Task<IActionResult> RegistrarRol(Rol entidad)
+        [Route("RegistrarCategoria")]
+        public async Task<IActionResult> RegistrarCategoria(Categoria entidad)
         {
             Respuesta resp = new Respuesta();
 
             using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
             {
-                var result = await context.ExecuteAsync("RegistrarRol", new { entidad.Nombre }, commandType: CommandType.StoredProcedure);
+                var result = await context.ExecuteAsync("RegistrarCategoria", new { entidad.Descripcion }, commandType: CommandType.StoredProcedure);
 
                 if (result > 0)
                 {
@@ -60,23 +33,23 @@ namespace HuellitasVetApi.Controllers
                 else
                 {
                     resp.Codigo = 0;
-                    resp.Mensaje = "La información del rol ya se encuentra registrada";
+                    resp.Mensaje = "La información de la categoria ya se encuentra registrada";
                     resp.Contenido = false;
                     return Ok(resp);
                 }
             }
         }
 
-        //Consultar Roles
+        //Consultar Categorias
         [HttpGet]
-        [Route("ConsultarRoles")]
-        public async Task<IActionResult> ConsultarRoles()
+        [Route("ConsultarCategorias")]
+        public async Task<IActionResult> ConsultarCategorias()
         {
             Respuesta resp = new Respuesta();
 
             using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
             {
-                var result = await context.QueryAsync<Rol>("ConsultarRoles", new { }, commandType: CommandType.StoredProcedure);
+                var result = await context.QueryAsync<Categoria>("ConsultarCategorias", new { }, commandType: CommandType.StoredProcedure);
 
                 if (result.Count() > 0)
                 {
@@ -88,23 +61,23 @@ namespace HuellitasVetApi.Controllers
                 else
                 {
                     resp.Codigo = 0;
-                    resp.Mensaje = "No hay roles registrados en este momento";
+                    resp.Mensaje = "No hay categorías registradas en este momento";
                     resp.Contenido = false;
                     return Ok(resp);
                 }
             }
         }
 
-        // Consultar Rol
+        // Consultar Categoría
         [HttpGet]
-        [Route("ConsultarRol")]
-        public async Task<IActionResult> ConsultarRol(int Id)
+        [Route("ConsultarCategoria")]
+        public async Task<IActionResult> ConsultarCategoria(int Id)
         {
             Respuesta resp = new Respuesta();
 
             using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
             {
-                var result = await context.QueryFirstOrDefaultAsync<Rol>("ConsultarRol", new { Id }, commandType: CommandType.StoredProcedure);
+                var result = await context.QueryFirstOrDefaultAsync<Categoria>("ConsultarCategoria", new { Id }, commandType: CommandType.StoredProcedure);
 
                 if (result != null)
                 {
@@ -116,7 +89,7 @@ namespace HuellitasVetApi.Controllers
                 else
                 {
                     resp.Codigo = 0;
-                    resp.Mensaje = "No hay roles registrados en este momento";
+                    resp.Mensaje = "No hay categorías registradas en este momento";
                     resp.Contenido = false;
                     return Ok(resp);
                 }
@@ -124,14 +97,14 @@ namespace HuellitasVetApi.Controllers
         }
 
         [HttpPut]
-        [Route("ActualizarRol")]
-        public async Task<IActionResult> ActualizarRol(Rol entidad)
+        [Route("ActualizarCategoria")]
+        public async Task<IActionResult> ActualizarCategoria(Categoria entidad)
         {
             Respuesta resp = new Respuesta();
 
             using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
             {
-                var result = await context.ExecuteAsync("ActualizarRol", new { entidad.IdRol, entidad.Nombre }, commandType: CommandType.StoredProcedure);
+                var result = await context.ExecuteAsync("ActualizarCategoria", new { entidad.IdCategoria, entidad.Descripcion }, commandType: CommandType.StoredProcedure);
 
                 if (result > 0)
                 {
@@ -143,7 +116,7 @@ namespace HuellitasVetApi.Controllers
                 else
                 {
                     resp.Codigo = 0;
-                    resp.Mensaje = "Error al actualizar el rol";
+                    resp.Mensaje = "Error al actualizar la categoría";
                     resp.Contenido = false;
                     return Ok(resp);
                 }
@@ -151,14 +124,14 @@ namespace HuellitasVetApi.Controllers
         }
 
         [HttpDelete]
-        [Route("EliminarRol")]
-        public async Task<IActionResult> EliminarRol(int Id)
+        [Route("EliminarCategoria")]
+        public async Task<IActionResult> EliminarCategoria(int Id)
         {
             Respuesta resp = new Respuesta();
 
             using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
             {
-                var result = await context.ExecuteAsync("EliminarRol", new { Id }, commandType: CommandType.StoredProcedure);
+                var result = await context.ExecuteAsync("EliminarCategoria", new { Id }, commandType: CommandType.StoredProcedure);
 
                 if (result > 0)
                 {
@@ -170,7 +143,7 @@ namespace HuellitasVetApi.Controllers
                 else
                 {
                     resp.Codigo = 0;
-                    resp.Mensaje = "Error al eliminar el rol";
+                    resp.Mensaje = "Error al eliminar la categoria";
                     resp.Contenido = false;
                     return Ok(resp);
                 }

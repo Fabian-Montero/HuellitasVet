@@ -3,6 +3,7 @@ using HuellitasVetWeb.Entidades;
 using HuellitasVetWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HuellitasVet.Controllers
 {
@@ -83,7 +84,5 @@ namespace HuellitasVet.Controllers
         {
             return View();
         }
-
-        
     }
 }

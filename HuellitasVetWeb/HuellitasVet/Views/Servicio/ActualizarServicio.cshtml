@@ -1,0 +1,85 @@
+﻿@model HuellitasVetWeb.Entidades.Servicio
+@{
+    ViewData["Title"] = "Actualizar Servicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.msj != null)
+{
+    <div class="alert alert-primary" role="alert" style="width: 365px; height: 80px;">
+        @ViewBag.msj
+    </div>
+}
+
+@using (Html.BeginForm("ActualizarServicio", "Servicio", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0">Actualizar Servicio </h3>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    @{
+                        if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success">
+                                @TempData["SuccessMessage"]
+                            </div>
+                        }
+                        if (TempData["ErrorMessage"] != null)
+                        {
+                            <div class="alert alert-danger">
+                                @TempData["ErrorMessage"]
+                            </div>
+                        }
+                    }
+                    @Html.HiddenFor(m => m.IdServicio)
+                    @Html.HiddenFor(m => m.RutaImagen)
+                    <h6 class="heading-small text-muted mb-4">Información</h6>
+                    <div class="pl-lg-4">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-username">Descripción del servicio</label>
+                                    @Html.TextBoxFor(m => m.Descripcion, new { @class = "form-control", @placeholder = "Ingrese la descripción", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-email">Precio</label>
+                                    @Html.TextBoxFor(m => m.Precio, new { @class = "form-control", @placeholder = "Ingrese el precio", @required = "required", @type = "number" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 ">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="imagen-actual">Imagen Actual</label>
+                                    <img class="form-control" src="@ViewBag.RutaImagen" style="width: 250px; height: 250px; ">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="imagen">Imagen</label>
+                                    <input type="file" id="ImagenServicio" name="ImagenServicio" class="form-control form-control-user" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-4">
+                        <input style="background-color:#855CBA; color:white" type="submit" class="btn my-4" value="Actualizar">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

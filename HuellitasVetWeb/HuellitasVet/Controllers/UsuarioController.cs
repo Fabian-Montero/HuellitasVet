@@ -7,7 +7,7 @@ using System.Text.Json;
 namespace HuellitasVetWeb.Controllers
 {
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public class UsuarioController(IUsuarioModel iUsuarioModel, IComunModel iComunModel, IRolesModel iRolesModel) : Controller
+    public class UsuarioController(IUsuarioModel iUsuarioModel, IRolesModel iRolesModel) : Controller
     {
         public IActionResult Index()
         {
@@ -113,7 +113,7 @@ namespace HuellitasVetWeb.Controllers
                 }
                 catch (JsonException ex)
                 {
-
+                    ViewBag.MsjPantalla = ex;
                     return RedirectToAction("Error", "Inicio");
                 }
             }

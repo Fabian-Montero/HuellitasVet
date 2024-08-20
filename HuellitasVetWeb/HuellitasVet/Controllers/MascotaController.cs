@@ -48,8 +48,6 @@ namespace HuellitasVetWeb.Controllers
                 return View();
 
             }
-
-          
         }
 
         //Consultar Mascotas

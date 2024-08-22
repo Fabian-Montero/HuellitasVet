@@ -10,7 +10,7 @@
             <div class="row justify-content-center">
                 <div class="col-xl-5 col-lg-6 col-md-8 px-5">
                     <h1 class="text-white">Bienvenido!</h1>
-                    <p class="text-lead text-white">Inicie sesión con sus credenciales</p>
+                    <p class="text-lead text-white">Recuperar su acceso</p>
                 </div>
             </div>
         </div>
@@ -32,22 +32,24 @@
                         </div>
                     }
 
-                    @using (Html.BeginForm("InicioSesion", "Home"))
+                    @{
+                        if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success">
+                                @TempData["SuccessMessage"]
+                            </div>
+                        }
+
+                    }
+
+                    @using (Html.BeginForm("RecuperarAcceso", "Home"))
                     {
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
-                                @Html.TextBoxFor(m => m.Correo, new { @type = "email", @class = "form-control", @placeholder = "Email", @maxlength = "50", @required = "required" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                                </div>
-                                @Html.TextBoxFor(m => m.Contrasenna, new { @type = "password", @class = "form-control", @placeholder = "Contraseña", @maxlength = "12", @required = "required" })
+                                @Html.TextBoxFor(m => m.Identificacion, new { @type = "text", @class = "form-control", @placeholder = "Identificacion", @maxlength = "50", @required = "required" })
                             </div>
                         </div>
 
@@ -55,19 +57,20 @@
                             <button type="submit" style="background-color:#855CBA; color:white" type="button" class="btn my-4" onclick="Inicio()">Procesar</button>
                         </div>
                     }
-                    
+
                 </div>
             </div>
             <div class="row mt-3">
-                <div class="col-6">
-                    <a href="@Url.Action("RecuperarAcceso","Home")" class="text-light"><small>Olvidó su contraseña?</small></a>
-                </div>
+                
                 <div class="col-6 text-right">
                     <a href="@Url.Action("Registro","Home")" class="text-light"><small>Crear una nueva cuenta</small></a>
+                </div>
+                <div class="col-6">
+                    <a href="@Url.Action("InicioSesion","Home")" class="text-light"><small>Iniciar sesión</small></a>
                 </div>
             </div>
         </div>
     </div>
 </div>
- 
+
 <script src="~/assets/js/enlace.js"></script>

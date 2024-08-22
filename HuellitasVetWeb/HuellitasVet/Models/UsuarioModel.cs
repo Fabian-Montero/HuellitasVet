@@ -1,8 +1,10 @@
 ﻿using HuellitasVetWeb.Entidades;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace HuellitasVetWeb.Models
 {
-    public class UsuarioModel(HttpClient httpClient, IConfiguration iConfiguration): IUsuarioModel
+    public class UsuarioModel(HttpClient httpClient, IConfiguration iConfiguration, IHttpContextAccessor iContextAccesor) : IUsuarioModel
     {
         public Respuesta ConsultarUsuarios()
         {
@@ -58,6 +60,7 @@ namespace HuellitasVetWeb.Models
         }
         public Respuesta InicioSesion(Usuario ent)
         {
+
             using (httpClient)
             {
                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/IniciarSesion";
@@ -74,6 +77,95 @@ namespace HuellitasVetWeb.Models
                 {
                     return new Respuesta();
                 }
+            }
+        }
+
+        public Respuesta ConsultarUsuario(int Id)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/ConsultarUsuario?Id=" + Id;
+
+                var resp = httpClient.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
+            }
+        }
+
+        public Respuesta ActualizarUsuario(Usuario entidad)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/ActualizarUsuario";
+                JsonContent body = JsonContent.Create(entidad);
+                var resp = httpClient.PutAsync(url, body).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
+            }
+        }
+
+        public Respuesta EliminarUsuario(int Id)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/EliminarUsuario?Id=" + Id;
+
+                var resp = httpClient.DeleteAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
+            }
+        }
+
+        public Respuesta? ConsultarDatosUsuario(int idusuario)
+        {
+            string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/ConsultarInformacionUsuario?idusuario=" + idusuario;
+            var solicitud = httpClient.GetAsync(url).Result;
+
+            if (solicitud.IsSuccessStatusCode)
+                return solicitud.Content.ReadFromJsonAsync<Respuesta>().Result;
+            else
+                return new Respuesta();
+        }
+
+        public Respuesta RecuperarAcceso(string Identificacion)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/RecuperarAcceso?Identificacion=" + Identificacion;
+
+                var resp = httpClient.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
+            }
+        }
+
+        public Respuesta CambiarContrasenna(Usuario ent)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/CambiarContrasenna";
+                string token = iContextAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                JsonContent body = JsonContent.Create(ent);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                var resp = httpClient.PutAsync(url, body).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
             }
         }
     }

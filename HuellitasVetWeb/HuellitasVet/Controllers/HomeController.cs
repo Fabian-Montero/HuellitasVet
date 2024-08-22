@@ -27,7 +27,7 @@ namespace HuellitasVet.Controllers
                 HttpContext.Session.SetString("TOKEN", datos!.Token!);
                 HttpContext.Session.SetString("NOMBRE", datos!.NombreCompleto!);
                 HttpContext.Session.SetString("ROL", datos!.RolId.ToString());
-                HttpContext.Session.SetInt32("CONSECUTIVO", datos!.IdUsuario);
+                HttpContext.Session.SetInt32("IDUSUARIO", datos!.IdUsuario);
 
                 return RedirectToAction("Inicio", "Home");
 
@@ -75,6 +75,24 @@ namespace HuellitasVet.Controllers
         [HttpGet]
         public IActionResult Inicio()
         {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult RecuperarAcceso()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult RecuperarAcceso(Usuario ent)
+        {
+            var resp = iUsuarioModel.RecuperarAcceso(ent.Identificacion!);
+
+            if (resp.Codigo == 1)
+                return RedirectToAction("InicioSesion", "Home");
+
+            ViewBag.msj = resp.Mensaje;
             return View();
         }
 

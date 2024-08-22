@@ -1,0 +1,176 @@
+﻿@model HuellitasVetWeb.Entidades.Usuario
+@{
+    ViewData["Title"] = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("MiCuenta", "Usuario"))
+{
+    
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        
+        <div class="col-xl-8">
+            
+            <div class="card">
+                @if (ViewBag.msj != null)
+                {
+                    <div class="alert alert-primary text-center" role="alert" style="width: 100%; height: 40px;">
+                        @ViewBag.msj
+                    </div>
+                }
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0">Perfil </h3>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="card-body">
+
+                    @{
+                        if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success">
+                                @TempData["SuccessMessage"]
+                            </div>
+                        }
+                        if (TempData["ErrorMessage"] != null)
+                        {
+                            <div class="alert alert-danger">
+                                @TempData["ErrorMessage"]
+                            </div>
+                        }
+                    }
+
+                    <h6 class="heading-small text-muted mb-4">Información</h6>
+                    <div class="pl-lg-4">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-username">Nombre</label>
+                                    @Html.TextBoxFor(m => m.NombreCompleto, new { @class = "form-control", @placeholder = "Nombre", @required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-email">Identificación</label>
+                                    @Html.TextBoxFor(m => m.Identificacion, new { @class = "form-control", @placeholder = "Identificación", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-last-name">Correo</label>
+                                    @Html.TextBoxFor(m => m.Correo, new { @class = "form-control", @placeholder = "Correo", @required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-first-name">Telefono</label>
+                                    @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control", @placeholder = "Telefono", @required = "required", Type = "int" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-last-name">Dirección</label>
+                                    @Html.TextAreaFor(m => m.Direccion, new { @class = "form-control", @placeholder = "Dirección", @required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                           
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-last-name">Rol</label>
+                                    @Html.TextBoxFor(m => m.Rol, new { @class = "form-control", @placeholder = "Rol", @required = "required", @readonly = "readonly" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-4">
+                        <input style="background-color:#855CBA; color:white" type="submit" class="btn my-4" value="Registrar">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@using (Html.BeginForm("CambiarContrasenna", "Usuario"))
+{
+    
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="col-xl-8">
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0">Cambiar contraseña </h3>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    @{
+                        if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success">
+                                @TempData["SuccessMessage"]
+                            </div>
+                        }
+                        if (TempData["ErrorMessage"] != null)
+                        {
+                            <div class="alert alert-danger">
+                                @TempData["ErrorMessage"]
+                            </div>
+                        }
+                    }
+
+                    <h6 class="heading-small text-muted mb-4">Ingrese su nueva contraseña</h6>
+                    <div class="pl-lg-4">
+                        
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-password">Contraseña</label>
+                                    @Html.TextBoxFor(m => m.Contrasenna, new { @type = "password", @class = "form-control", @placeholder = "Contraseña" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-password">Confirmar contraseña</label>
+                                    @Html.TextBoxFor(m => m.ContrasennaConfirmar, new { @type = "password", @class = "form-control", @placeholder = "Confirmar Contraseña" })
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="d-flex justify-content-center mt-4">
+                        <input style="background-color:#855CBA; color:white" type="submit" class="btn my-4" value="Procesar">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

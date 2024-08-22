@@ -242,33 +242,6 @@ namespace HuellitasVetApi.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("EliminarUsuario")]
-        public async Task<IActionResult> EliminarUsuario(int Id)
-        {
-            Respuesta resp = new Respuesta();
-
-            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
-            {
-                var result = await context.ExecuteAsync("EliminarUsuario", new { Id }, commandType: CommandType.StoredProcedure);
-
-                if (result > 0)
-                {
-                    resp.Codigo = 1;
-                    resp.Mensaje = "OK";
-                    resp.Contenido = result;
-                    return Ok(resp);
-                }
-                else
-                {
-                    resp.Codigo = 0;
-                    resp.Mensaje = "Eror al eliminar el usuario";
-                    resp.Contenido = false;
-                    return Ok(resp);
-                }
-            }
-        }
-
         //Recuperar acceso
         [HttpGet]
         [Route("RecuperarAcceso")]
@@ -403,39 +376,5 @@ namespace HuellitasVetApi.Controllers
     }
 
 }
-    
 
-
-
-        [HttpGet]
-        [Route("ConsultarInformacionUsuario")]
-        public async Task<IActionResult> ConsultarHorarioDisponible(long idusuario)
-        {
-            Respuesta resp = new Respuesta();
-
-            using (var contexto = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
-            {
-                var parameters = new DynamicParameters();
-                parameters.Add("@idusuario", idusuario);
-
-                var request = (await contexto.QueryAsync<Usuario>("ConsultarPerfilUsuario", parameters, commandType: System.Data.CommandType.StoredProcedure)).ToList();
-
-                if (request != null && request.Count > 0)
-                {
-                    resp.Codigo = 1;
-                    resp.Mensaje = "OK";
-                    resp.Contenido = request;
-                    return Ok(resp);
-                }
-                else
-                {
-                    resp.Codigo = 0;
-                    resp.Mensaje = "No se ha encontrado la información";
-                    return Ok(resp);
-                }
-            }
-        }
-
-    }
-    }
 

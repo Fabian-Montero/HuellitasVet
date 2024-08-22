@@ -4,6 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if (ViewBag.msj != null)
+{
+    <div class="alert alert-primary" role="alert" style="width: 365px; height: 80px;">
+        @ViewBag.msj
+    </div>
+}
 
 
 @using (Html.BeginForm("MiCuenta", "Usuario"))
@@ -166,10 +172,10 @@
                     </div>
                     <div class="d-flex justify-content-center mt-4">
                         <input style="background-color:#855CBA; color:white" type="submit" class="btn my-4" value="Procesar">
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 }
 

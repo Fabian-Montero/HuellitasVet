@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [HuellitasVet]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  Database [HuellitasVet]    Script Date: 17/8/2024 20:30:28 ******/
 CREATE DATABASE [HuellitasVet]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -84,7 +84,7 @@ ALTER DATABASE [HuellitasVet] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEA
 GO
 USE [HuellitasVet]
 GO
-/****** Object:  Table [dbo].[Categoria]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  Table [dbo].[Categoria]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -98,7 +98,7 @@ CREATE TABLE [dbo].[Categoria](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Cita]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  Table [dbo].[Cita]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -118,7 +118,7 @@ CREATE TABLE [dbo].[Cita](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Cita_Detalle]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  Table [dbo].[Cita_Detalle]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -137,7 +137,7 @@ CREATE TABLE [dbo].[Cita_Detalle](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Especie]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  Table [dbo].[Especie]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -151,7 +151,7 @@ CREATE TABLE [dbo].[Especie](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Mascota]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  Table [dbo].[Mascota]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -171,7 +171,7 @@ CREATE TABLE [dbo].[Mascota](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Producto]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  Table [dbo].[Producto]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -188,7 +188,7 @@ CREATE TABLE [dbo].[Producto](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Rol]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  Table [dbo].[Rol]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -202,7 +202,7 @@ CREATE TABLE [dbo].[Rol](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Servicio]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  Table [dbo].[Servicio]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -218,7 +218,7 @@ CREATE TABLE [dbo].[Servicio](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Usuario]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  Table [dbo].[Usuario]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -267,7 +267,7 @@ SET IDENTITY_INSERT [dbo].[Especie] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Mascota] ON 
 GO
-INSERT [dbo].[Mascota] ([IdMascota], [Nombre], [Raza], [Color], [Edad], [Sexo], [EspecieId], [UsuarioId]) VALUES (8, N'Max', N'Pastor Alemán', N'Negro', 9, N'M', 2, 3)
+INSERT [dbo].[Mascota] ([IdMascota], [Nombre], [Raza], [Color], [Edad], [Sexo], [EspecieId], [UsuarioId]) VALUES (8, N'Max', N'Pastor Alemán', N'Negro', 9, N'M', 3, 4)
 GO
 SET IDENTITY_INSERT [dbo].[Mascota] OFF
 GO
@@ -299,21 +299,21 @@ SET IDENTITY_INSERT [dbo].[Servicio] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Usuario] ON 
 GO
-INSERT [dbo].[Usuario] ([IdUsuario], [NombreCompleto], [Identificacion], [Correo], [Telefono], [Direccion], [Contrasenna], [Estado], [RolId]) VALUES (3, N'Tifanny Camacho Monge', N'305070199', N'tcamacho70199@ufide.ac.cr', N'61046045', N'Cartago', N'5555', 1, 1)
+INSERT [dbo].[Usuario] ([IdUsuario], [NombreCompleto], [Identificacion], [Correo], [Telefono], [Direccion], [Contrasenna], [Estado], [RolId]) VALUES (3, N'Tifanny Camacho Monge', N'305070199', N'tcamacho70199@ufide.ac.cr', N'61046045', N'Cartago', N'5555', 1, 2)
 GO
 INSERT [dbo].[Usuario] ([IdUsuario], [NombreCompleto], [Identificacion], [Correo], [Telefono], [Direccion], [Contrasenna], [Estado], [RolId]) VALUES (4, N'Frank Garay', N'116510000', N'frank@gmail.com', N'61344003', N'Heredia, San Francisco, 40103', N'Frank1234', 1, 2)
 GO
-INSERT [dbo].[Usuario] ([IdUsuario], [NombreCompleto], [Identificacion], [Correo], [Telefono], [Direccion], [Contrasenna], [Estado], [RolId]) VALUES (5, N'Frank Joseph Garay Morales', N'116510847', N'fgaray10847@ufide.ac.cr', N'6134003', N'condominio francisco de heredia, apt 119', N'QAxitIS86NMf', 1, 2)
+INSERT [dbo].[Usuario] ([IdUsuario], [NombreCompleto], [Identificacion], [Correo], [Telefono], [Direccion], [Contrasenna], [Estado], [RolId]) VALUES (5, N'Frank Joseph Garay Morales', N'116510847', N'fgaray10847@ufide.ac.cr', N'6134003', N'condominio francisco de heredia, apt 119', N'QAxitIS86NMf', 1, 1)
 GO
-INSERT [dbo].[Usuario] ([IdUsuario], [NombreCompleto], [Identificacion], [Correo], [Telefono], [Direccion], [Contrasenna], [Estado], [RolId]) VALUES (10, N'test3', N'222222222222', N'test3@test.com', N'345314343', N'test2test2test2test2test2test2test2test2test2', N'hloz5q/KrTPl', 1, 2)
+INSERT [dbo].[Usuario] ([IdUsuario], [NombreCompleto], [Identificacion], [Correo], [Telefono], [Direccion], [Contrasenna], [Estado], [RolId]) VALUES (12, N'Fabian Montero Madrigal edit', N'118560019', N'fabianja0477@gmail.com', N'84955721', N'San José Vázquez de coronado', N'h7njfGopwZVF', 1, 2)
 GO
-INSERT [dbo].[Usuario] ([IdUsuario], [NombreCompleto], [Identificacion], [Correo], [Telefono], [Direccion], [Contrasenna], [Estado], [RolId]) VALUES (11, N'test5', N'1111111', N'test5@test.com', N'111111', N'fefeferfefefef', N'QAxitIS86NMf', 1, 2)
+INSERT [dbo].[Usuario] ([IdUsuario], [NombreCompleto], [Identificacion], [Correo], [Telefono], [Direccion], [Contrasenna], [Estado], [RolId]) VALUES (13, N'Melissa Vargas Gómez', N'402510174', N'mv213845@gmail.com', N'87963587', N'Heredia, Mercedes Norte', N'h7njfGopwZVF', 1, 1)
 GO
 SET IDENTITY_INSERT [dbo].[Usuario] OFF
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__Usuario__D6F931E5C703BC38]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  Index [UQ__Usuario__D6F931E531381072]    Script Date: 17/8/2024 20:30:28 ******/
 ALTER TABLE [dbo].[Usuario] ADD UNIQUE NONCLUSTERED 
 (
 	[Identificacion] ASC
@@ -354,7 +354,193 @@ REFERENCES [dbo].[Rol] ([IdRol])
 GO
 ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [FK_USUARIO_ROL]
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarMascotas]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  StoredProcedure [dbo].[ActualizarCategoria]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ActualizarCategoria]
+    @Descripcion VARCHAR(200),
+	@IdCategoria BIGINT
+AS
+BEGIN
+    UPDATE [dbo].[Categoria] 
+    SET [Descripcion] = COALESCE(@Descripcion, [Descripcion])
+      
+ WHERE IdCategoria = @IdCategoria
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[ActualizarEspecie]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ActualizarEspecie]
+    @Descripcion VARCHAR(200),
+	@IdEspecie BIGINT
+AS
+BEGIN
+    UPDATE [dbo].[Especie] 
+    SET [Descripcion] = COALESCE(@Descripcion, [Descripcion])
+      
+ WHERE IdEspecie = @IdEspecie
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[ActualizarMascota]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ActualizarMascota]
+    @Nombre VARCHAR(200),
+    @Raza VARCHAR(200) = NULL,
+    @Color VARCHAR(20) = NULL,
+    @Edad INT = NULL,
+    @Sexo VARCHAR(1) = NULL,
+    @EspecieId BIGINT,
+    @UsuarioId BIGINT,
+	@IdMascota BIGINT
+AS
+BEGIN
+    UPDATE [dbo].[Mascota]
+   SET [Nombre] = @Nombre
+      ,[Raza] = @Raza
+      ,[Color] = @Color
+      ,[Edad] = @Edad
+      ,[Sexo] = @Sexo
+      ,[EspecieId] = @EspecieId
+      ,[UsuarioId] = @UsuarioId
+ WHERE IdMascota = @IdMascota
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[ActualizarRol]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ActualizarRol]
+    @Nombre VARCHAR(200),
+	@IdRol BIGINT
+AS
+BEGIN
+    UPDATE [dbo].[Rol] 
+    SET [Nombre] = COALESCE(@Nombre, [Nombre])
+      
+ WHERE IdRol = @IdRol
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[ActualizarUsuario]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ActualizarUsuario]
+	@NombreCompleto   varchar(255),
+	@Identificacion   varchar(12),
+	@Correo           varchar(50),
+	@Telefono         varchar(50),
+	@Direccion        varchar(250),
+	@Estado bit,
+	@RolId bigint,
+	@IdUsuario BIGINT
+AS
+BEGIN
+	
+
+UPDATE [dbo].[Usuario]
+   SET [NombreCompleto] = @NombreCompleto
+      ,[Identificacion] = @Identificacion
+      ,[Correo] = @Correo
+      ,[Telefono] = @Telefono
+      ,[Direccion] = @Direccion
+      ,[Estado] = @Estado
+      ,[RolId] = @RolId
+ WHERE IdUsuario = @IdUsuario
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarCategoria]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ConsultarCategoria]
+@Id bigint
+AS
+BEGIN
+    SELECT [IdCategoria]
+          ,[Descripcion]
+          
+      FROM [dbo].[Categoria]
+	  WHERE IdCategoria = @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarCategorias]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ConsultarCategorias]
+AS
+BEGIN
+    SELECT [IdCategoria]
+          ,[Descripcion]
+          
+      FROM [dbo].[Categoria]
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarEspecie]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ConsultarEspecie]
+@Id bigint
+AS
+BEGIN
+    SELECT [IdEspecie]
+          ,[Descripcion]
+          
+      FROM [dbo].[Especie]
+	  WHERE IdEspecie = @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarEspecies]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ConsultarEspecies]
+AS
+BEGIN
+    SELECT [IdEspecie]
+          ,[Descripcion]
+          
+      FROM [dbo].[Especie]
+END
+------------------
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarMascota]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ConsultarMascota]
+@Id bigint
+AS
+BEGIN
+    SELECT [IdMascota]
+          ,[Nombre]
+          ,[Raza]
+          ,[Color]
+          ,[Edad]
+          ,[Sexo]
+          ,[EspecieId]
+          ,[UsuarioId]
+      FROM [dbo].[Mascota]
+	  WHERE IdMascota = @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarMascotas]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -373,7 +559,62 @@ BEGIN
       FROM [dbo].[Mascota]
 END
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarTiposEspecies]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarPerfilUsuario]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create PROCEDURE [dbo].[ConsultarPerfilUsuario] 
+@idusuario bigint
+AS
+BEGIN
+    SELECT [IdUsuario]
+      ,[NombreCompleto]
+      ,[Identificacion]
+      ,[Correo]
+      ,[Telefono]
+      ,[Direccion]
+      ,[Contrasenna]
+      ,[Estado]
+      ,rol.Nombre as Rol
+
+  FROM [dbo].[Usuario] users
+  inner join  Rol rol on users.RolId=rol.IdRol
+
+  where users.IdUsuario=@idusuario
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarRol]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ConsultarRol]
+@Id bigint
+AS
+BEGIN
+    SELECT [IdRol]
+          ,[Nombre]
+          
+      FROM [dbo].[Rol]
+	  WHERE IdRol = @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarRoles]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ConsultarRoles]
+AS
+BEGIN
+    SELECT [IdRol]
+          ,[Nombre]
+          
+      FROM [dbo].[Rol]
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarTiposEspecies]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -387,7 +628,21 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarTiposUsuarios]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarTiposRoles]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[ConsultarTiposRoles]
+AS
+BEGIN
+    SELECT IdRol 'value'
+          ,Nombre 'text'
+      FROM Rol
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarTiposUsuarios]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -401,7 +656,30 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[ConsultarUsuarios]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  StoredProcedure [dbo].[ConsultarUsuario]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[ConsultarUsuario]
+@Id bigint
+AS
+BEGIN
+    SELECT [IdUsuario]
+      ,[NombreCompleto]
+      ,[Identificacion]
+      ,[Correo]
+      ,[Telefono]
+      ,[Direccion]
+      ,[Contrasenna]
+      ,[Estado]
+      ,[RolId]
+  FROM [dbo].[Usuario]
+	  WHERE IdUsuario = @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarUsuarios]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -421,7 +699,77 @@ BEGIN
   FROM [dbo].[Usuario]
 END
 GO
-/****** Object:  StoredProcedure [dbo].[IniciarSesion]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  StoredProcedure [dbo].[EliminarCategoria]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[EliminarCategoria]
+@Id bigint
+AS
+BEGIN
+
+DELETE FROM Categoria
+      WHERE IdCategoria = @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[EliminarEspecie]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[EliminarEspecie]
+@Id bigint
+AS
+BEGIN
+
+DELETE FROM Especie
+      WHERE IdEspecie = @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[EliminarMascota]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[EliminarMascota]
+@Id bigint
+AS
+BEGIN
+
+DELETE FROM Mascota
+      WHERE IdMascota = @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[EliminarRol]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[EliminarRol]
+@Id bigint
+AS
+BEGIN
+
+DELETE FROM Rol
+      WHERE IdRol = @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[EliminarUsuario]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[EliminarUsuario]
+@Id bigint
+AS
+BEGIN
+
+DELETE FROM Usuario
+      WHERE IdUsuario = @Id
+END
+GO
+/****** Object:  StoredProcedure [dbo].[IniciarSesion]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -441,7 +789,39 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[RegistrarMascota]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  StoredProcedure [dbo].[RegistrarCategoria]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[RegistrarCategoria]
+    @Descripcion VARCHAR(200)  
+AS
+BEGIN
+    INSERT INTO [dbo].[Categoria] (
+        [Descripcion]
+    ) VALUES (
+        @Descripcion
+    );
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[RegistrarEspecie]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[RegistrarEspecie]
+    @Descripcion VARCHAR(200)  
+AS
+BEGIN
+    INSERT INTO [dbo].[Especie] (
+        [Descripcion]
+    ) VALUES (
+        @Descripcion
+    );
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[RegistrarMascota]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -475,7 +855,23 @@ BEGIN
     );
 END;
 GO
-/****** Object:  StoredProcedure [dbo].[RegistrarUsuario]    Script Date: 7/25/2024 11:24:28 AM ******/
+/****** Object:  StoredProcedure [dbo].[RegistrarRol]    Script Date: 17/8/2024 20:30:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[RegistrarRol]
+    @Nombre VARCHAR(200)  
+AS
+BEGIN
+    INSERT INTO [dbo].[Rol] (
+        [Nombre]
+    ) VALUES (
+        @Nombre
+    );
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[RegistrarUsuario]    Script Date: 17/8/2024 20:30:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

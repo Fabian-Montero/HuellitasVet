@@ -32,6 +32,16 @@
                         </div>
                     }
 
+                    @{
+                        if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success">
+                                @TempData["SuccessMessage"]
+                            </div>
+                        }
+                       
+                    }
+
                     @using (Html.BeginForm("InicioSesion", "Home"))
                     {
                         <div class="form-group mb-3">

@@ -1,14 +1,16 @@
 ﻿using HuellitasVetWeb.Entidades;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http;
 
 namespace HuellitasVetWeb.Models
 {
-    public class MascotaModel(HttpClient httpClient, IConfiguration iConfiguration) : IMascotaModel
+    public class CategoriaModel(HttpClient httpClient, IConfiguration iConfiguration) : ICategoriaModel
     {
-        public Respuesta RegistrarMascota(Mascota entidad)
+        public Respuesta RegistrarCategoria(Categoria entidad)
         {
             using (httpClient)
             {
-                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/RegistrarMascota";
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Categoria/RegistrarCategoria";
                 JsonContent body = JsonContent.Create(entidad);
                 var resp = httpClient.PostAsync(url, body).Result;
 
@@ -18,11 +20,12 @@ namespace HuellitasVetWeb.Models
                     return new Respuesta();
             }
         }
-        public Respuesta ConsultarMascotas()
+
+        public Respuesta ConsultarCategorias()
         {
             using (httpClient)
             {
-                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/ConsultarMascotas";
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Categoria/ConsultarCategorias";
 
                 var resp = httpClient.GetAsync(url).Result;
 
@@ -33,11 +36,11 @@ namespace HuellitasVetWeb.Models
             }
         }
 
-        public Respuesta ConsultarMascota(int Id)
+        public Respuesta ConsultarCategoria(int Id)
         {
             using (httpClient)
             {
-                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/ConsultarMascota?Id=" + Id;
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Categoria/ConsultarCategoria?Id=" + Id;
 
                 var resp = httpClient.GetAsync(url).Result;
 
@@ -48,28 +51,28 @@ namespace HuellitasVetWeb.Models
             }
         }
 
-        public Respuesta EliminarMascota(int Id)
+        public Respuesta ActualizarCategoria(Categoria entidad)
         {
             using (httpClient)
             {
-                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/EliminarMascota?Id=" + Id;
-
-                var resp = httpClient.DeleteAsync(url).Result;
-
-                if (resp.IsSuccessStatusCode)
-                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
-                else
-                    return new Respuesta();
-            }
-        }
-
-        public Respuesta ActualizarMascota(Mascota entidad)
-        {
-            using (httpClient)
-            {
-                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/ActualizarMascota";
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Categoria/ActualizarCategoria";
                 JsonContent body = JsonContent.Create(entidad);
                 var resp = httpClient.PutAsync(url, body).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
+            }
+        }
+
+        public Respuesta EliminarCategoria(int Id)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Categoria/EliminarCategoria?Id=" + Id;
+
+                var resp = httpClient.DeleteAsync(url).Result;
 
                 if (resp.IsSuccessStatusCode)
                     return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;

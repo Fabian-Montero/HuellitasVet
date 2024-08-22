@@ -168,5 +168,61 @@ namespace HuellitasVetWeb.Models
                     return new Respuesta();
             }
         }
+
+        public Respuesta ConsultarUsuario(int Id)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/ConsultarUsuario?Id=" + Id;
+
+                var resp = httpClient.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
+            }
+        }
+
+        public Respuesta ActualizarUsuario(Usuario entidad)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/ActualizarUsuario";
+                JsonContent body = JsonContent.Create(entidad);
+                var resp = httpClient.PutAsync(url, body).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
+            }
+        }
+
+        public Respuesta EliminarUsuario(int Id)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/EliminarUsuario?Id=" + Id;
+
+                var resp = httpClient.DeleteAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
+            }
+        }
+
+        public Respuesta? ConsultarDatosUsuario(int idusuario)
+        {
+            string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/ConsultarInformacionUsuario?idusuario=" + idusuario;
+            var solicitud = httpClient.GetAsync(url).Result;
+
+            if (solicitud.IsSuccessStatusCode)
+                return solicitud.Content.ReadFromJsonAsync<Respuesta>().Result;
+            else
+                return new Respuesta();
+        }
     }
 }

@@ -31,19 +31,28 @@
                         <th style="font-size: 12px; font-weight: bold;"><strong>Sexo</strong></th>
                         <th style="font-size: 12px; font-weight: bold;"><strong>Especie</strong></th>
                         <th style="font-size: 12px; font-weight: bold;"><strong>Usuario</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Acciones</strong></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr class="odd">
-                            <td>@item.Nombre</td>
-                            <td>@item.Raza</td>
-                            <td>@item.Color</td>
-                            <td>@item.Edad</td>
-                            <td>@item.Sexo</td>
-                            <td>@(especies.ContainsKey(item.EspecieId) ? especies[item.EspecieId] : "Desconocido")</td>
-                            <td>@(usuarios.ContainsKey(item.UsuarioId) ? usuarios[item.UsuarioId] : "Desconocido")</td>
+                            <td style="vertical-align: middle">@item.Nombre</td>
+                            <td style="vertical-align: middle">@item.Raza</td>
+                            <td style="vertical-align: middle">@item.Color</td>
+                            <td style="vertical-align: middle">@item.Edad</td>
+                            <td style="vertical-align: middle">@item.Sexo</td>
+                            <td style="vertical-align: middle">@(especies.ContainsKey(item.EspecieId) ? especies[item.EspecieId] : "Desconocido")</td>
+                            <td style="vertical-align: middle">@(usuarios.ContainsKey(item.UsuarioId) ? usuarios[item.UsuarioId] : "Desconocido")</td>
+                            <td style="text-align: center; vertical-align: middle">
+                                <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 70px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("ActualizarMascota","Mascota",new { id = item.IdMascota}))">
+                                    Editar
+                                </a>
+                                <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 80px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("EliminarMascota","Mascota",new { id = item.IdMascota}))">
+                                    Eliminar
+                                </a>
+                            </td>
                         </tr>
                     }
                 </tbody>

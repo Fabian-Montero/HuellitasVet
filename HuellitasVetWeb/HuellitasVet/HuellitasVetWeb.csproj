@@ -14,6 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FirebaseAuthentication.net" Version="3.7.2" />
+    <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
   </ItemGroup>
 
@@ -24,6 +26,10 @@
     <None Include="wwwroot\page\jquery\jquery.slim.js" />
     <None Include="wwwroot\page\jquery\jquery.slim.min.js" />
     <None Include="wwwroot\page\jquery\jquery.slim.min.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Especies\" />
   </ItemGroup>
 
 </Project>

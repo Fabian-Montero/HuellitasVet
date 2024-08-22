@@ -29,18 +29,19 @@
                             <th style="font-size: 12px; font-weight: bold;"><strong>Dirección</strong></th>
                             <th style="font-size: 12px; font-weight: bold;"><strong>Estado</strong></th>
                             <th style="font-size: 12px; font-weight: bold;"><strong>Rol</strong></th>
+                            <th style="font-size: 12px; font-weight: bold;"><strong>Acciones</strong></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr class="odd">
-                                <td>@item.NombreCompleto</td>
-                                <td>@item.Identificacion</td>
-                                <td>@item.Correo</td>
-                                <td>@item.Telefono</td>
-                                <td>@item.Direccion</td>
-                                <td>
+                                <td style ="vertical-align: middle">@item.NombreCompleto</td>
+                                <td style="vertical-align: middle">@item.Identificacion</td>
+                                <td style="vertical-align: middle">@item.Correo</td>
+                                <td style="vertical-align: middle">@item.Telefono</td>
+                                <td style="vertical-align: middle">@item.Direccion</td>
+                                <td style="vertical-align: middle">
                                     @if (item.Estado == true)
                                     {
                                         @:Activo
@@ -50,15 +51,23 @@
                                         @:Inactivo
                                     }
                                 </td>
-                                <td>
+                                <td style="vertical-align: middle">
                                     @if (item.RolId == 1)
                                     {
                                         @:Administrador
                                     }
-                                    else 
+                                    else
                                     {
                                         @:Cliente
                                     }
+                                </td>
+                                <td style="text-align: center; vertical-align: middle">
+                                    <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 70px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("ActualizarUsuario","Usuario",new { id = item.IdUsuario}))">
+                                        Editar
+                                    </a>
+                                    <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 80px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("EliminarUsuario","Usuario",new { id = item.IdUsuario}))">
+                                        Eliminar
+                                    </a>
                                 </td>
                             </tr>
                         }

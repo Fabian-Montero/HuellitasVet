@@ -3,7 +3,6 @@ using HuellitasVetWeb.Entidades;
 using HuellitasVetWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HuellitasVet.Controllers
 {
@@ -21,14 +20,14 @@ namespace HuellitasVet.Controllers
         {
             ent.Contrasenna = iComunModel.Encrypt(ent.Contrasenna!);
             var res = iUsuarioModel.InicioSesion(ent);
-            if (res.Codigo == 1)
+            if(res.Codigo == 1)
             {
 
                 var datos = JsonSerializer.Deserialize<Usuario>((JsonElement)res.Contenido!);
                 HttpContext.Session.SetString("TOKEN", datos!.Token!);
                 HttpContext.Session.SetString("NOMBRE", datos!.NombreCompleto!);
                 HttpContext.Session.SetString("ROL", datos!.RolId.ToString());
-                HttpContext.Session.SetInt32("CONSECUTIVO", datos!.IdUsuario);
+                HttpContext.Session.SetInt32("IDUSUARIO", datos!.IdUsuario);
 
                 return RedirectToAction("Inicio", "Home");
 
@@ -40,7 +39,7 @@ namespace HuellitasVet.Controllers
             }
         }
 
-
+        
 
         [HttpGet]
         public IActionResult Registro()
@@ -56,18 +55,12 @@ namespace HuellitasVet.Controllers
 
             if (res.Codigo == 1)
             {
-                TempData["SuccessMessage"] = "Registro existoso.Inicie sesión";
-
-                ViewBag.msj = res.Mensaje;
-                return RedirectToAction("InicioSesion", "Home");
-
-
+                return RedirectToAction("Inicio", "Home");
             }
             else
             {
-                TempData["ErrorMessage"] = "Hubo un error en el registro.";
-                return RedirectToAction("Registro", "Home");
-
+                ViewBag.msj = res.Mensaje;
+                return View();
             }
         }
         [FiltroSesiones]
@@ -83,6 +76,40 @@ namespace HuellitasVet.Controllers
         public IActionResult Inicio()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult RecuperarAcceso()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult RecuperarAcceso(Usuario ent)
+        {
+            var resp = iUsuarioModel.RecuperarAcceso(ent.Identificacion!);
+
+            if (resp.Codigo == 1)
+                return RedirectToAction("InicioSesion", "Home");
+
+            ViewBag.msj = resp.Mensaje;
+            return View();
+        }
+
+        //Consultar Usuarios
+        [FiltroSesiones]
+        [HttpGet]
+        public IActionResult ConsultarUsuarios()
+        {
+            var resp = iUsuarioModel.ConsultarUsuarios();
+
+            if (resp.Codigo == 1)
+            {
+                var datos = JsonSerializer.Deserialize<List<Usuario>>((JsonElement)resp.Contenido!);
+                return View(datos);
+            }
+
+            return View(new List<Usuario>());
         }
     }
 }

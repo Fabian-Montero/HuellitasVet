@@ -10,5 +10,7 @@
         public string? Sexo { get; set; }
         public int EspecieId { get; set; }
         public int UsuarioId { get; set; }
+
+        public string? Mascotas { get; set; }
     }
 }

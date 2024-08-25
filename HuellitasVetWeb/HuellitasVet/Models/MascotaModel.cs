@@ -1,4 +1,6 @@
 ﻿using HuellitasVetWeb.Entidades;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.Json;
 
 namespace HuellitasVetWeb.Models
 {
@@ -75,6 +77,36 @@ namespace HuellitasVetWeb.Models
                     return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
                 else
                     return new Respuesta();
+            }
+        }
+
+
+        public List<SelectListItem> ConsultarMascotasUsuario(int UsuarioId)
+        {
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/ObtenerMascotasUsuario?UsuarioId="+UsuarioId;
+
+                var response = httpClient.GetAsync(url).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var respuesta = response.Content.ReadFromJsonAsync<Respuesta>().Result;
+                    if (respuesta!.Codigo == 1)
+                    {
+                        var jsonElement = (JsonElement)respuesta.Contenido!;
+                        var productos = JsonSerializer.Deserialize<List<Mascota>>(jsonElement.GetRawText());
+                        if (productos != null)
+                        {
+                            return productos.Select(t => new SelectListItem
+                            {
+                                Value = t.IdMascota.ToString(),
+                                Text = t.Mascotas
+                            }).ToList();
+                        }
+                    }
+                }
+                return new List<SelectListItem>();
             }
         }
     }

@@ -1,0 +1,131 @@
+﻿@model HuellitasVetWeb.Entidades.Cita
+
+@{
+    ViewData["Title"] = "Registrar Cita";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.msj != null)
+{
+    <div class="alert alert-primary" role="alert" style="width: 365px; height: 80px;">
+        @ViewBag.msj
+    </div>
+}
+
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h3 class="mb-0">Registrar Cita</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                @{
+                    if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+                    if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            @TempData["ErrorMessage"]
+                        </div>
+                    }
+                }
+
+                <h6 class="heading-small text-muted mb-4">Información Cita</h6>
+                <div class="pl-lg-4">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="input-servicio">Servicio</label>
+                                @Html.DropDownListFor(m => m.IdServicio, ViewBag.ServiciosList as List<SelectListItem>, new { @class = "form-control", @required = "required", @id = "servicio" })
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="input-fecha">Fecha</label>
+                                @Html.TextBoxFor(m => m.fecha, new { @class = "form-control", @type = "date", @min = DateTime.Now.ToString("yyyy-MM-dd"), @required = "required", @id = "fecha" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-4">
+                    <button type="button" style="background-color:#855CBA; color:white" class="btn my-4" onclick="consultarDisponibilidad()">Consultar Disponibilidad</button>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="tablaHorarios" class="table table-bordered" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    function consultarDisponibilidad() {
+        var servicioId = $('#servicio').val();
+        var fecha = $('#fecha').val();
+
+        $.ajax({
+            url: '@Url.Action("ConsultaDisponibilidad", "Citas")',
+            type: 'GET',
+            data: { Id_Servicio: servicioId, Fecha: fecha },
+            success: function (data) {
+                $('#tablaHorarios tbody').empty();
+
+                $.each(data, function (i, item) {
+                    var row = '<tr>' +
+                        '<td>' + item.fecha + '</td>' +
+                        '<td>' + item.hora + '</td>' +
+                        '<td><a href="#" class="btn btn-success" data-idhorario="' + item.idhorario + '" data-servicioid="' + servicioId + '" data-fecha="' + fecha + '" data-hora="' + item.hora + '">Reservar</a></td>' +
+                        '</tr>';
+                    $('#tablaHorarios tbody').append(row);
+                });
+            },
+            error: function () {
+                alert("Error al consultar disponibilidad.");
+            }
+        });
+    }
+
+    
+    $('#tablaHorarios').on('click', '.btn-success', function (e) {
+        e.preventDefault();
+
+        var idHorario = $(this).data('idhorario');
+        var servicioId = $(this).data('servicioid');
+        var fecha = $(this).data('fecha');
+        var hora = $(this).data('hora');  
+
+        var url = '@Url.Action("DetalleCita", "Citas")?IdServicio=' + servicioId + '&Fecha=' + fecha + '&idhorario=' + idHorario + '&hora=' + hora;
+
+        window.location.href = url;
+    });
+</script>
+
+
+
+
+    
+

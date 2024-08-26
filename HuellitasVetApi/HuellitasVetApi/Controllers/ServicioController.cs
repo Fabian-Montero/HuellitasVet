@@ -1,14 +1,12 @@
 ﻿using Dapper;
 using HuellitasVetApi.Entidades;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using Microsoft.IdentityModel.Logging;
-using Microsoft.IdentityModel.Tokens;
-using System.ComponentModel.Design;
+using Microsoft.Extensions.Configuration;
 using System.Data;
-using System.Runtime.CompilerServices;
+
+
 
 namespace HuellitasVetApi.Controllers
 {
@@ -16,6 +14,35 @@ namespace HuellitasVetApi.Controllers
     [ApiController]
     public class ServicioController(IConfiguration iConfiguration) : ControllerBase
     {
+        [HttpGet]
+
+        [Route("ObtenerListadoServicios")]
+        public async Task<IActionResult> ObtenerListadoServicios()
+        {
+            Respuesta respuesta = new Respuesta();
+            using (var contexto = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var request = await contexto.QueryAsync("ObtenerServicios", new {  },
+                      commandType: System.Data.CommandType.StoredProcedure);
+                if (request != null)
+                {
+                    respuesta.Codigo = 1;
+                    respuesta.Mensaje = "OK";
+                    respuesta.Contenido = request.ToList();
+                    return Ok(respuesta);
+                }
+                else
+                {
+                    respuesta.Codigo = 0;
+                    respuesta.Mensaje = "No ha encontrado servicios";
+                    respuesta.Contenido = false;
+                    return Ok(respuesta);
+                }
+            }
+
+        }
+
+
         [HttpGet]
         [Route("ConsultarServicios")]
         public async Task<IActionResult> ConsultarServicios()
@@ -38,6 +65,40 @@ namespace HuellitasVetApi.Controllers
                 {
                     resp.Codigo = 0;
                     resp.Mensaje = "No hay servicios registrados en este momento";
+                    resp.Contenido = false;
+                    return Ok(resp);
+                }
+            }
+        }
+
+        [HttpGet]
+        [Route("ConsultarServicio")]
+        public async Task<IActionResult> ConsultarUsuario(int Id)
+        {
+
+            Respuesta resp = new Respuesta();
+
+            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+
+                var result = await context.QueryFirstOrDefaultAsync<Servicio>("ConsultarSerVicio", new { Id }, commandType: CommandType.StoredProcedure);
+
+                if (result != null)
+                {
+                    resp.Codigo = 1;
+                    resp.Mensaje = "OK";
+
+              
+                    
+
+                    resp.Contenido = result;
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Codigo = 0;
+
+                   
                     resp.Contenido = false;
                     return Ok(resp);
                 }
@@ -123,33 +184,7 @@ namespace HuellitasVetApi.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("ConsultarServicio")]
-        public async Task<IActionResult> ConsultarServicios(int Id)
-        {
-
-            Respuesta resp = new Respuesta();
-
-            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
-            {
-                var result = await context.QueryFirstOrDefaultAsync<Servicio>("ConsultarServicio", new { Id}, commandType: CommandType.StoredProcedure);
-
-                if (result != null)
-                {
-                    resp.Codigo = 1;
-                    resp.Mensaje = "";
-                    resp.Contenido = result;
-                    return Ok(resp);
-                }
-                else
-                {
-                    resp.Codigo = 0;
-                    resp.Mensaje = "No se ha encontrado el servicio solicitado";
-                    resp.Contenido = false;
-                    return Ok(resp);
-                }
-            }
-        }
+        
 
         [HttpPut]
         [Route("ActualizarServicio")]
@@ -176,6 +211,7 @@ namespace HuellitasVetApi.Controllers
                 }
             }
         }
+
 
     }
 

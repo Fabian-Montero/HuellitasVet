@@ -1,4 +1,5 @@
 ﻿using HuellitasVetWeb.Entidades;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
 
 namespace HuellitasVetWeb.Models
@@ -13,5 +14,7 @@ namespace HuellitasVetWeb.Models
         Respuesta EliminarMascota(int id);
 
         Respuesta ActualizarMascota(Mascota entidad);
+
+        List<SelectListItem> ConsultarMascotasUsuario(int UsuarioId);
     }
 }

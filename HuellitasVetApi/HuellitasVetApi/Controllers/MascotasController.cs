@@ -148,5 +148,34 @@ namespace HuellitasVetApi.Controllers
                 }
             }
         }
+
+
+        [HttpGet]
+        [Route("ObtenerMascotasUsuario")]
+        public async Task<IActionResult> ObtenerMascotasUsuario(int UsuarioId)
+        {
+            Respuesta respuesta = new Respuesta();
+            using (var contexto = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var request = await contexto.QueryAsync("ObtenerMascotasUsuario", new { UsuarioId },
+                      commandType: System.Data.CommandType.StoredProcedure);
+                if (request != null)
+                {
+                    respuesta.Codigo = 1;
+                    respuesta.Mensaje = "OK";
+                    respuesta.Contenido = request.ToList();
+                    return Ok(respuesta);
+                }
+                else
+                {
+                    respuesta.Codigo = 0;
+                    respuesta.Mensaje = "No cuenta con mascotas registradas";
+                    respuesta.Contenido = false;
+                    return Ok(respuesta);
+                }
+            }
+        }
     }
+
 }
+

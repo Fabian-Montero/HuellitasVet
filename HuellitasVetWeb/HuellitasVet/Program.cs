@@ -17,6 +17,9 @@ builder.Services.AddScoped<IRolesModel, RolesModel>();
 builder.Services.AddScoped<IServicioModel, ServicioModel>();
 builder.Services.AddScoped<IFirebaseModel, FirebaseModel>();
 builder.Services.AddScoped<ICategoriaModel, CategoriaModel>();
+builder.Services.AddScoped<IServicioModel, ServicioModel>();
+builder.Services.AddScoped<ICitaModel, CitaModel>();
+
 
 
 var app = builder.Build();
@@ -44,3 +47,10 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=InicioSesion}/{id?}");
 
 app.Run();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});

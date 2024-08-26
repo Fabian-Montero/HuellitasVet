@@ -5,11 +5,11 @@ using System.Text.Json;
 
 namespace HuellitasVetWeb.Controllers
 {
-    public class CitasController(IServicioModel iserviciomodel, ICitaModel Icitamodel, 
+    public class CitasController(IServicioModel iserviciomodel, ICitaModel Icitamodel,
         IMascotaModel imascotamodel) : Controller
     {
 
-        
+
         [HttpGet]
         [FiltroSesiones]
         public IActionResult RegistrarCita()
@@ -21,7 +21,7 @@ namespace HuellitasVetWeb.Controllers
 
         public ActionResult ListaServicios()
         {
-            var serviciosList = iserviciomodel.ConsultarServicios();
+            var serviciosList = iserviciomodel.ObtenerServicios();
             ViewBag.ServiciosList = serviciosList;
 
 
@@ -41,7 +41,7 @@ namespace HuellitasVetWeb.Controllers
                 return Json(datos);
             }
 
-            return Json(new List<Cita>()); 
+            return Json(new List<Cita>());
         }
 
 
@@ -51,38 +51,38 @@ namespace HuellitasVetWeb.Controllers
         [FiltroSesiones]
         public IActionResult DetalleCita(int IdServicio, DateTime? Fecha, int idhorario, string hora)
         {
-            
+
             ListaMascotas();
 
-       
+
             var modelo = new Servicio
             {
                 IdServicio = IdServicio,
-                Fecha = Fecha!.Value, 
-                idhorario = idhorario ,
-                hora=hora
+                //Fecha = Fecha!.Value,
+                idhorario = idhorario,
+                hora = hora
             };
             var resp = iserviciomodel.ConsultarServicio(IdServicio);
 
             if (resp.Codigo == 1)
             {
-                
+
                 var datos = JsonSerializer.Deserialize<Servicio>((JsonElement)resp.Contenido!);
 
-               
+
                 return View(datos);
 
             }
 
-            
+
             return View(new Servicio());
         }
 
 
         public ActionResult ListaMascotas()
         {
-           
-            var mascotasList = imascotamodel.ConsultarMascotasUsuario(HttpContext.Session.GetInt32("CONSECUTIVO")!.Value);
+        
+            var mascotasList = imascotamodel.ConsultarMascotasUsuario(HttpContext.Session.GetInt32("IDUSUARIO")!.Value);
             ViewBag.MascotasList = mascotasList;
 
 
@@ -96,7 +96,7 @@ namespace HuellitasVetWeb.Controllers
         public IActionResult RegistrarCita(Cita entidad)
         {
 
-            entidad.IdUsuario = HttpContext.Session.GetInt32("CONSECUTIVO")!.Value;
+            entidad.IdUsuario = HttpContext.Session.GetInt32("IDUSUARIO")!.Value;
             
             var resp = Icitamodel.RegistrarCita(entidad);
 

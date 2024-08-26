@@ -7,7 +7,7 @@ using System.Text.Json;
 namespace HuellitasVetWeb.Controllers
 {
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public class UsuarioController(IUsuarioModel iUsuarioModel, IComunModel iComunModel, IRolesModel iRolesModel) : Controller
+    public class UsuarioController(IUsuarioModel iUsuarioModel, IRolesModel iRolesModel) : Controller
     {
         public IActionResult Index()
         {
@@ -86,7 +86,7 @@ namespace HuellitasVetWeb.Controllers
         [FiltroSesiones]
         public IActionResult MiCuenta()
         {
-            var idUsuarioSession = HttpContext.Session.GetInt32("CONSECUTIVO");
+            var idUsuarioSession = HttpContext.Session.GetInt32("IDUSUARIO");
             int idusuario = idUsuarioSession ?? 0;
 
             var respuesta = iUsuarioModel.ConsultarDatosUsuario(idusuario);
@@ -113,7 +113,7 @@ namespace HuellitasVetWeb.Controllers
                 }
                 catch (JsonException ex)
                 {
-
+                    ViewBag.MsjPantalla = ex;
                     return RedirectToAction("Error", "Inicio");
                 }
             }
@@ -141,6 +141,27 @@ namespace HuellitasVetWeb.Controllers
             listaEstados.Add(new SelectListItem { Text = "Inactivo", Value = false.ToString() });
 
             ViewBag.Estados = listaEstados;
+        }
+
+        [HttpPost]
+        public IActionResult CambiarContrasenna(Usuario ent)
+        {
+            ent.IdUsuario = HttpContext.Session.GetInt32("IDUSUARIO")!.Value;
+            if (ent.Contrasenna != ent.ContrasennaConfirmar)
+            {
+                ViewBag.msj = "Las contraseñas ingresadas no coinciden";
+                return View("MiCuenta");
+            }
+
+            var resp = iUsuarioModel.CambiarContrasenna(ent);
+
+            if (resp.Codigo == 1)
+            {
+                return RedirectToAction("Salir", "Home");
+            }
+
+            ViewBag.msj = resp.Mensaje;
+            return View("MiCuenta");
         }
     }
 }

@@ -1,3 +1,4 @@
+using HuellitasVetApi.Models;
 using HuellitasVetWeb.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,12 +14,17 @@ builder.Services.AddScoped<IEspecieModel, EspecieModel>();
 builder.Services.AddScoped<IUsuarioModel, UsuarioModel>();
 builder.Services.AddScoped<IComunModel, ComunModel>();
 builder.Services.AddScoped<IRolesModel, RolesModel>();
+builder.Services.AddScoped<IServicioModel, ServicioModel>();
+builder.Services.AddScoped<IFirebaseModel, FirebaseModel>();
 builder.Services.AddScoped<ICategoriaModel, CategoriaModel>();
 builder.Services.AddScoped<IServicioModel, ServicioModel>();
 builder.Services.AddScoped<ICitaModel, CitaModel>();
 
 
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

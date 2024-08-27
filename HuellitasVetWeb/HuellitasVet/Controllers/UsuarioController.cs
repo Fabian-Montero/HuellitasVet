@@ -52,15 +52,26 @@ namespace HuellitasVetWeb.Controllers
         [FiltroSesiones]
         public IActionResult ActualizarUsuario(Usuario entidad)
         {
-            var resp = iUsuarioModel.ActualizarUsuario(entidad);
+      
 
-            if (resp.Codigo == 1)
-                return RedirectToAction("ConsultarUsuarios", "Usuario");
+            long? IDUSUARIO = HttpContext.Session.GetInt32("IDUSUARIO");
+
+            // Verificar si el usuario está intentando actualizarse a sí mismo, si no es el mismo permite la actualizacion
+            if (entidad.IdUsuario != (int)IDUSUARIO)
+            {
+                var resp = iUsuarioModel.ActualizarUsuario(entidad);
+                if (resp.Codigo == 1)
+                    return RedirectToAction("ConsultarUsuarios", "Usuario");
 
             ViewBag.msj = resp.Mensaje;
             ConsultarTiposEstados();
             ConsultarTiposRoles();
             return RedirectToAction("ConsultarUsuarios", "Usuario");
+
+            }
+           // Si es a si mismo lo redirege a la lista de nuevo
+           return RedirectToAction("ConsultarUsuarios", "Usuario");
+            
         }
 
         [HttpGet]

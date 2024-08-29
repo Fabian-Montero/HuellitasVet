@@ -27,20 +27,7 @@
 
                 <div class="card-body">
 
-                    @{
-                        if (TempData["SuccessMessage"] != null)
-                        {
-                            <div class="alert alert-success">
-                                @TempData["SuccessMessage"]
-                            </div>
-                        }
-                        if (TempData["ErrorMessage"] != null)
-                        {
-                            <div class="alert alert-danger">
-                                @TempData["ErrorMessage"]
-                            </div>
-                        }
-                    }
+                    
                     @Html.HiddenFor(m => m.IdServicio)
                     @Html.HiddenFor(m => m.RutaImagen)
                     <h6 class="heading-small text-muted mb-4">Información</h6>

@@ -102,7 +102,7 @@ namespace HuellitasVetWeb.Models
         {
             using (httpClient)
             {
-                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/ActualizarUsuario";
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/ActualizarUsuarioPerfil";
                 string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
 
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

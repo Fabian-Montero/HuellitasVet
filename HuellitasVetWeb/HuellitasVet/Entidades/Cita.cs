@@ -6,7 +6,7 @@ namespace HuellitasVetWeb.Entidades
     {
 
 
-        public DateTime fecha { get; set; }
+        public DateOnly fecha { get; set; }
         public string hora { get; set; }
 
         public int idhorario { get; set; }
@@ -23,9 +23,19 @@ namespace HuellitasVetWeb.Entidades
 
         public string FechaCita { get; set; }
 
+        public string NombreCompleto { get; set; }
+
+        public int IdCita { get; set; }
+
         public string Mascota { get; set; }
 
         public string Servicio { get; set; }
+
+        public float SubTotal { get; set; }
+
+        public float Impuesto { get; set; }
+
+        public float Total { get; set; }
 
     }
 }

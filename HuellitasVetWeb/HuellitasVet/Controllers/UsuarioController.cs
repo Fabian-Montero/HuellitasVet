@@ -3,6 +3,7 @@ using HuellitasVetWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HuellitasVetWeb.Controllers
 {
@@ -84,13 +85,14 @@ namespace HuellitasVetWeb.Controllers
 
             
            
-            
+                entidad.IdUsuario = (int)IDUSUARIO!;
                 var resp = iUsuarioModel.ActualizarUsuario(entidad);
                 if (resp.Codigo == 1)
                    
                 ViewBag.msj = resp.Mensaje;
-               
-                return RedirectToAction("MiCuenta", "Usuario");
+                HttpContext.Session.SetString("NOMBRE", entidad.NombreCompleto!);
+
+            return RedirectToAction("MiCuenta", "Usuario");
 
            
             

@@ -189,3 +189,34 @@ $(function () {
         });
     });
 });
+
+//Eliminar Productos
+$(function () {
+    $('.btn-deletePro').on('click', function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        var url = $this.data('url');
+
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Esta acción no se puede deshacer!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#8c5cbc',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: '¡Eliminado!',
+                    text: 'El producto ha sido eliminado.',
+                    icon: 'success',
+                    confirmButtonColor: '#8c5cbc'
+                }).then(() => {
+                    window.location.href = url;
+                });
+            }
+        });
+    });
+});

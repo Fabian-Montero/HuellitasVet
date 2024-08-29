@@ -18,15 +18,17 @@ namespace HuellitasVetApi.Controllers
         public async Task<IActionResult> ObtenerMascotasUsuario(int Id_Servicio, DateTime Fecha)
         {
             Respuesta respuesta = new Respuesta();
+            //var Fecha2 = Fecha.ToString("yyyy-dd-MM");
+            
             using (var contexto = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
             {
-                var request = await contexto.QueryAsync("ObtenerHorariosDisponibles", new { Id_Servicio, Fecha },
+                var request = await contexto.QueryAsync<Citas>("ObtenerHorariosDisponibles", new { Id_Servicio, Fecha },
                       commandType: System.Data.CommandType.StoredProcedure);
-                if (request != null)
+                if (request.Count() > 0)
                 {
                     respuesta.Codigo = 1;
                     respuesta.Mensaje = "OK";
-                    respuesta.Contenido = request.ToList();
+                    respuesta.Contenido = request;
                     return Ok(respuesta);
                 }
                 else

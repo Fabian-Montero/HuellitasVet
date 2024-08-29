@@ -10,7 +10,6 @@ namespace HuellitasVetWeb.Controllers
         IMascotaModel imascotamodel) : Controller
     {
 
-
         [HttpGet]
         [FiltroSesiones]
         public IActionResult RegistrarCita()
@@ -25,7 +24,6 @@ namespace HuellitasVetWeb.Controllers
             var serviciosList = iserviciomodel.ObtenerServicios();
             ViewBag.ServiciosList = serviciosList;
 
-
             return View();
 
         }
@@ -34,6 +32,8 @@ namespace HuellitasVetWeb.Controllers
         [HttpGet]
         public IActionResult ConsultaDisponibilidad(int Id_Servicio, DateTime Fecha)
         {
+
+            //Fecha.ToString("yyyy-MM-dd");
             var resp = Icitamodel.ConsultaDisponibilidad(Id_Servicio, Fecha);
 
             if (resp.Codigo == 1)

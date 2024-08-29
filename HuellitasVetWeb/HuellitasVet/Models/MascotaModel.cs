@@ -1,11 +1,27 @@
 ﻿using HuellitasVetWeb.Entidades;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
 namespace HuellitasVetWeb.Models
 {
-    public class MascotaModel(HttpClient httpClient, IConfiguration iConfiguration) : IMascotaModel
+    public class MascotaModel(HttpClient httpClient, IConfiguration iConfiguration, IHttpContextAccessor iAccesor) : IMascotaModel
     {
+        //Consultar mascotas usuario cliente
+        public Respuesta ConsultarMascotaUsuario()
+        {
+            string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/ConsultarMascotaUsuario";
+            string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var result = httpClient.GetAsync(url).Result;
+
+            if (result.IsSuccessStatusCode)
+                return result.Content.ReadFromJsonAsync<Respuesta>().Result!;
+            else
+                return new Respuesta();
+        }
+
         public Respuesta RegistrarMascota(Mascota entidad)
         {
             using (httpClient)

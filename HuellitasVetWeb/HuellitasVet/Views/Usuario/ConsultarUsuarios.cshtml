@@ -65,9 +65,9 @@
                                     <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 70px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("ActualizarUsuario","Usuario",new { id = item.IdUsuario}))">
                                         Editar
                                     </a>
-                                    <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 80px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("EliminarUsuario","Usuario",new { id = item.IdUsuario}))">
+                                    <a class="btn btn-icon btn-primary btn-deleteUsu" style="background-color:#855CBA; color:white; width: 80px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("EliminarUsuario","Usuario",new { id = item.IdUsuario}))" data-url="@(Url.Action("EliminarUsuario", "Usuario", new { id = item.IdUsuario }))">
                                         Eliminar
-                                    </a>
+                                    </a> 
                                 </td>
                             </tr>
                         }
@@ -79,3 +79,5 @@
 </div>
 
 <script src="~/page/jquery/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/sweetalerts.js"></script>

@@ -103,7 +103,6 @@ namespace HuellitasVetWeb.Controllers
 
             if (resp.Codigo == 1)
             {
-                
 
                 ViewBag.msj = resp.Mensaje;
 

@@ -1,9 +1,11 @@
 ﻿using HuellitasVetWeb.Entidades;
+using System.Net.Http.Headers;
 using System.Security.Policy;
+using static System.Net.WebRequestMethods;
 
 namespace HuellitasVetWeb.Models
 {
-    public class ServicioModel(HttpClient httpClient, IConfiguration iConfiguration) : IServicioModel
+    public class ServicioModel(HttpClient httpClient, IConfiguration iConfiguration, IHttpContextAccessor iAccesor) : IServicioModel
     {
         public Respuesta ConsultarServicios()
         {
@@ -11,7 +13,9 @@ namespace HuellitasVetWeb.Models
             using (httpClient)
             {
                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Servicio/ConsultarServicios";
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
 
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 var resp = httpClient.GetAsync(url).Result;
 
                 if (resp.IsSuccessStatusCode)
@@ -27,6 +31,10 @@ namespace HuellitasVetWeb.Models
             using (httpClient = new HttpClient())
             {
                 var url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Servicio/RegistrarServicio";
+
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 JsonContent body = JsonContent.Create(ent);
 
@@ -50,6 +58,10 @@ namespace HuellitasVetWeb.Models
             using (httpClient = new HttpClient())
             {
                 var url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Servicio/ActualizarRutaImagen";
+
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 JsonContent body = JsonContent.Create(ent);
 
@@ -76,6 +88,10 @@ namespace HuellitasVetWeb.Models
 
                 string url = iConfiguration.GetSection("LLaves:UrlApi").Value + "Servicio/EliminarServicio?Id=" + ServicioId;
 
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 var resp = httpClient.DeleteAsync(url).Result;
 
                 if (resp.IsSuccessStatusCode)
@@ -96,6 +112,10 @@ namespace HuellitasVetWeb.Models
             {
                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Servicio/ConsultarServicio?Id=" + id;
 
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 var resp = httpClient.GetAsync(url).Result;
 
                 if (resp.IsSuccessStatusCode)
@@ -112,6 +132,10 @@ namespace HuellitasVetWeb.Models
             using (httpClient = new HttpClient())
             {
                 var url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Servicio/ActualizarServicio";
+
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 JsonContent body = JsonContent.Create(ent);
 

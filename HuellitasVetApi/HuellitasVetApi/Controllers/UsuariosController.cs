@@ -97,6 +97,7 @@ namespace HuellitasVetApi.Controllers
 
         //Consultar Usuarios 
         [HttpGet]
+        [Authorize]
         [Route("ConsultarUsuarios")]
         public async Task<IActionResult> ConsultarUsuarios()
         {
@@ -124,6 +125,7 @@ namespace HuellitasVetApi.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("ConsultarUsuario")]
         public async Task<IActionResult> ConsultarUsuario(int Id)
         {
@@ -151,6 +153,7 @@ namespace HuellitasVetApi.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("ActualizarUsuario")]
         public async Task<IActionResult> ActualizarUsuario(Usuario entidad)
         {
@@ -189,6 +192,7 @@ namespace HuellitasVetApi.Controllers
 
         //Consultar Tipos Usuarios
         [HttpGet]
+        [AllowAnonymous]
         [Route("ConsultarTiposUsuarios")]
         public async Task<IActionResult> ConsultarTiposUsuarios()
         {
@@ -216,6 +220,7 @@ namespace HuellitasVetApi.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("EliminarUsuario")]
         public async Task<IActionResult> EliminarUsuario(int Id)
         {
@@ -244,6 +249,7 @@ namespace HuellitasVetApi.Controllers
 
         //Recuperar acceso
         [HttpGet]
+        [AllowAnonymous]
         [Route("RecuperarAcceso")]
         public async Task<IActionResult> RecuperarAcceso(string Identificacion)
         {
@@ -310,6 +316,7 @@ namespace HuellitasVetApi.Controllers
 
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("ConsultarInformacionUsuario")]
         public async Task<IActionResult> ConsultarHorarioDisponible(long idusuario)
         {

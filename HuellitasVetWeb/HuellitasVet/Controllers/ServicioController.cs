@@ -27,6 +27,22 @@ namespace HuellitasVetWeb.Controllers
             }
         }
 
+        public IActionResult ConsultarServiciosCliente()
+        {
+            var resp = iServicioModel.ConsultarServicios();
+
+            if (resp.Codigo == 1)
+            {
+                var datos = JsonSerializer.Deserialize<List<Servicio>>((JsonElement)resp.Contenido!);
+                return View(datos);
+            }
+            else
+            {
+                ViewBag.MsjPantalla = resp.Mensaje;
+                return View();
+            }
+        }
+
         [HttpGet]
         [FiltroSesiones]
         public IActionResult ActualizarServicio(int id)
@@ -104,8 +120,6 @@ namespace HuellitasVetWeb.Controllers
             {
                 var datos = JsonSerializer.Deserialize<Servicio>((JsonElement)resp.Contenido!);
                 int IdServicio = datos!.IdServicio;
-                string nombre = ent.Descripcion!;
-
 
                 Servicio servicio = new Servicio();
                 servicio.RutaImagen = await iFirebaseModel.GuardarImagen("servicio", IdServicio, ImagenServicio);

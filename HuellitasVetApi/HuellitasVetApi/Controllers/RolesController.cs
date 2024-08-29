@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using HuellitasVetApi.Entidades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +14,7 @@ namespace HuellitasVetApi.Controllers
     public class RolesController(IConfiguration iConfiguration) : ControllerBase
     {
         [HttpGet]
+        [Authorize]
         [Route("ConsultarTiposRoles")]
         public async Task<IActionResult> ConsultarTiposRoles()
         {
@@ -41,6 +43,7 @@ namespace HuellitasVetApi.Controllers
 
         //Registrar Rol
         [HttpPost]
+        [Authorize]
         [Route("RegistrarRol")]
         public async Task<IActionResult> RegistrarRol(Rol entidad)
         {
@@ -69,6 +72,7 @@ namespace HuellitasVetApi.Controllers
 
         //Consultar Roles
         [HttpGet]
+        [Authorize]
         [Route("ConsultarRoles")]
         public async Task<IActionResult> ConsultarRoles()
         {
@@ -97,6 +101,7 @@ namespace HuellitasVetApi.Controllers
 
         // Consultar Rol
         [HttpGet]
+        [Authorize]
         [Route("ConsultarRol")]
         public async Task<IActionResult> ConsultarRol(int Id)
         {
@@ -124,6 +129,7 @@ namespace HuellitasVetApi.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("ActualizarRol")]
         public async Task<IActionResult> ActualizarRol(Rol entidad)
         {
@@ -151,6 +157,7 @@ namespace HuellitasVetApi.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("EliminarRol")]
         public async Task<IActionResult> EliminarRol(int Id)
         {

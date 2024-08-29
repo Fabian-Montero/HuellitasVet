@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using HuellitasVetApi.Entidades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,6 +16,7 @@ namespace HuellitasVetApi.Controllers
     {
         //Consultar Tipos Especies
         [HttpGet]
+        [Authorize]
         [Route("ConsultarTiposEspecies")]
         public async Task<IActionResult> ConsultarTiposEspecies()
         {
@@ -43,6 +45,7 @@ namespace HuellitasVetApi.Controllers
 
         //Registrar Especie
         [HttpPost]
+        [Authorize]
         [Route("RegistrarEspecie")]
         public async Task<IActionResult> RegistrarEspecie(Especie entidad)
         {
@@ -71,6 +74,7 @@ namespace HuellitasVetApi.Controllers
 
         // Consultar Especie
         [HttpGet]
+        [Authorize]
         [Route("ConsultarEspecie")]
         public async Task<IActionResult> ConsultarEspecie(int Id)
         {
@@ -99,6 +103,7 @@ namespace HuellitasVetApi.Controllers
 
         //Consultar Especies
         [HttpGet]
+        [Authorize]
         [Route("ConsultarEspecies")]
         public async Task<IActionResult> ConsultarEspecies()
         {
@@ -126,6 +131,7 @@ namespace HuellitasVetApi.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("EliminarEspecie")]
         public async Task<IActionResult> EliminarEspecie(int Id)
         {
@@ -153,6 +159,7 @@ namespace HuellitasVetApi.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("ActualizarEspecie")]
         public async Task<IActionResult> ActualizarEspecie(Especie entidad)
         {

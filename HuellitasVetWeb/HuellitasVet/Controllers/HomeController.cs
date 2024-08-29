@@ -29,7 +29,7 @@ namespace HuellitasVet.Controllers
                 HttpContext.Session.SetString("ROL", datos!.RolId.ToString());
                 HttpContext.Session.SetInt32("IDUSUARIO", datos!.IdUsuario);
 
-                return RedirectToAction("Inicio", "Home");
+                return RedirectToAction("ConsultarServiciosCliente", "Servicio");
 
             }
             else

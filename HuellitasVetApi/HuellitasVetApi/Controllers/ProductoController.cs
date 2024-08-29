@@ -3,30 +3,27 @@ using HuellitasVetApi.Entidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
-using Microsoft.IdentityModel.Logging;
-using Microsoft.IdentityModel.Tokens;
-using System.ComponentModel.Design;
 using System.Data;
-using System.Runtime.CompilerServices;
 
 namespace HuellitasVetApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServicioController(IConfiguration iConfiguration) : ControllerBase
+    public class ProductoController(IConfiguration iConfiguration) : ControllerBase
     {
+
         [HttpGet]
         [Authorize]
-        [Route("ConsultarServicios")]
-        public async Task<IActionResult> ConsultarServicios()
+        [Route("ConsultarProductos")]
+        public async Task<IActionResult> ConsultarProductos()
         {
-
             Respuesta resp = new Respuesta();
 
             using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
             {
-                var result = await context.QueryAsync<Servicio>("ConsultarServicios", new { }, commandType: CommandType.StoredProcedure);
+                var result = await context.QueryAsync<Producto>("ConsultarProductos", new { }, commandType: CommandType.StoredProcedure);
 
                 if (result.Count() > 0)
                 {
@@ -38,23 +35,26 @@ namespace HuellitasVetApi.Controllers
                 else
                 {
                     resp.Codigo = 0;
-                    resp.Mensaje = "No hay servicios registrados en este momento";
+                    resp.Mensaje = "No hay productos registrados en este momento";
                     resp.Contenido = false;
                     return Ok(resp);
                 }
             }
         }
 
-        [HttpPost]
-        [Route("RegistrarServicio")]
-        public async Task<IActionResult> RegistrarServicio(Servicio ent) {
+        [HttpGet]
+        [Authorize]
+        [Route("ConsultarTiposCategorias")]
+        public async Task<IActionResult> ConsultarTiposCategorias()
+        {
             Respuesta resp = new Respuesta();
 
             using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
             {
-                var result = await context.QueryFirstOrDefaultAsync<Servicio>("RegistrarServicio", new { ent.Descripcion, ent.Precio }, commandType: CommandType.StoredProcedure);
+                var result = await context.QueryAsync<SelectListItem>("ConsultarTiposCategorias", new { }, commandType: CommandType.StoredProcedure);
 
-                if (result != null) {
+                if (result.Count() > 0)
+                {
                     resp.Codigo = 1;
                     resp.Mensaje = "";
                     resp.Contenido = result;
@@ -63,7 +63,41 @@ namespace HuellitasVetApi.Controllers
                 else
                 {
                     resp.Codigo = 0;
-                    resp.Mensaje = "Error al registrar el servicio";
+                    resp.Mensaje = "No hay categorías registrados en este momento";
+                    resp.Contenido = false;
+                    return Ok(resp);
+                }
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("AgregarProducto")]
+        public async Task<IActionResult> AgregarProducto(Producto ent)
+        {
+            Respuesta resp = new Respuesta();
+
+            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var result = await context.QueryFirstOrDefaultAsync<Producto>("AgregarProducto", new
+                {
+                    ent.IdProducto,
+                    ent.Descripcion,
+                    ent.Precio,
+                    ent.CategoriaId
+                }, commandType: CommandType.StoredProcedure);
+
+                if (result != null)
+                {
+                    resp.Codigo = 1;
+                    resp.Mensaje = "";
+                    resp.Contenido = result;
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Codigo = 0;
+                    resp.Mensaje = "Eror al registrar el producto";
                     resp.Contenido = false;
                     return Ok(resp);
                 }
@@ -71,13 +105,16 @@ namespace HuellitasVetApi.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("ActualizarRutaImagen")]
-        public async Task<IActionResult> ActualizarRutaImagen(Servicio ent) {
+        public async Task<IActionResult> ActualizarRutaImagen(Producto ent)
+        {
             Respuesta resp = new Respuesta();
 
             using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
             {
-                var result = await context.ExecuteAsync("ActualizarRutaImagen", new { ent.IdServicio, ent.RutaImagen }, commandType: CommandType.StoredProcedure);
+                var result = await context.ExecuteAsync("ActualizarRutaImagenProducto", new {ent.IdProducto, ent.RutaImagen }, commandType: CommandType.StoredProcedure);
+
                 if (result > 0)
                 {
                     resp.Codigo = 1;
@@ -95,45 +132,16 @@ namespace HuellitasVetApi.Controllers
             }
         }
 
-
-
-        [HttpDelete]
-        [Route("EliminarServicio")]
-        public async Task<IActionResult> EliminarServicio(int Id) 
-        {
-            Respuesta resp = new Respuesta();
-
-            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
-            {
-                var result = await context.ExecuteAsync("EliminarServicio", new { Id }, commandType: CommandType.StoredProcedure);
-
-                if (result > 0)
-                {
-                    resp.Codigo = 1;
-                    resp.Mensaje = "";
-                    resp.Contenido = false;
-                    return Ok(resp);
-                }
-                else
-                {
-                    resp.Codigo = 0;
-                    resp.Mensaje = "Error al eliminar el servicio";
-                    resp.Contenido = result;
-                    return Ok(resp);
-                }
-            }
-        }
-
         [HttpGet]
-        [Route("ConsultarServicio")]
-        public async Task<IActionResult> ConsultarServicio(int Id)
+        [Authorize]
+        [Route("ConsultarProducto")]
+        public async Task<IActionResult> ConsultarProducto(int IdProducto)
         {
-
             Respuesta resp = new Respuesta();
 
             using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
             {
-                var result = await context.QueryFirstOrDefaultAsync<Servicio>("ConsultarServicio", new { Id}, commandType: CommandType.StoredProcedure);
+                var result = await context.QueryFirstOrDefaultAsync<Producto>("ConsultarProducto", new {IdProducto }, commandType: CommandType.StoredProcedure);
 
                 if (result != null)
                 {
@@ -145,7 +153,7 @@ namespace HuellitasVetApi.Controllers
                 else
                 {
                     resp.Codigo = 0;
-                    resp.Mensaje = "No se ha encontrado el servicio solicitado";
+                    resp.Mensaje = "No se ha encontrado el producto solicitado";
                     resp.Contenido = false;
                     return Ok(resp);
                 }
@@ -153,14 +161,22 @@ namespace HuellitasVetApi.Controllers
         }
 
         [HttpPut]
-        [Route("ActualizarServicio")]
-        public async Task<IActionResult> ActualizarServicio(Servicio ent)
+        [Authorize]
+        [Route("ActualizarProducto")]
+        public async Task<IActionResult> ActualizarProducto(Producto ent)
         {
             Respuesta resp = new Respuesta();
 
             using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
             {
-                var result = await context.ExecuteAsync("ActualizarServicio", new { ent.IdServicio, ent.Descripcion, ent.Precio }, commandType: CommandType.StoredProcedure);
+                var result = await context.ExecuteAsync("ActualizarProducto", new {
+                    ent.IdProducto,
+                    ent.Descripcion,
+                    ent.Precio,
+                    ent.CategoriaId,
+                    ent.RutaImagen 
+                }, commandType: CommandType.StoredProcedure);
+
                 if (result > 0)
                 {
                     resp.Codigo = 1;
@@ -171,14 +187,40 @@ namespace HuellitasVetApi.Controllers
                 else
                 {
                     resp.Codigo = 0;
-                    resp.Mensaje = "Error al actualizar el servicio en la base de datos";
+                    resp.Mensaje = "Error al actualizar el producto";
                     resp.Contenido = false;
                     return Ok(resp);
                 }
             }
         }
 
+        [HttpDelete]
+        [Authorize]
+        [Route("EliminarProducto")]
+        public async Task<IActionResult> EliminarProducto(int IdProducto)
+        {
+            Respuesta resp = new Respuesta();
+
+            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var result = await context.ExecuteAsync("EliminarProducto", new { IdProducto }, commandType: CommandType.StoredProcedure);
+
+                if (result > 0)
+                {
+                    resp.Codigo = 1;
+                    resp.Mensaje = "";
+                    resp.Contenido = false;
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Codigo = 0;
+                    resp.Mensaje = "Error al eliminar el producto";
+                    resp.Contenido = result;
+                    return Ok(resp);
+                }
+            }
+        }
+
     }
-
 }
-

@@ -1,6 +1,7 @@
 ﻿
 using Dapper;
 using HuellitasVetApi.Entidades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -15,6 +16,7 @@ namespace HuellitasVetApi.Controllers
     {
         //Registrar Mascota
         [HttpPost]
+        [Authorize]
         [Route("RegistrarMascota")]
         public async Task<IActionResult> RegistrarMascota(Mascota entidad)
         {
@@ -43,6 +45,7 @@ namespace HuellitasVetApi.Controllers
 
         //Consultar Mascotas
         [HttpGet]
+        [Authorize]
         [Route("ConsultarMascotas")]
         public async Task<IActionResult> ConsultarMascotas()
         {
@@ -69,6 +72,7 @@ namespace HuellitasVetApi.Controllers
             }
         }
         [HttpGet]
+        [Authorize]
         [Route("ConsultarMascota")]
         public async Task<IActionResult> ConsultarMascota(int Id)
         {
@@ -96,6 +100,7 @@ namespace HuellitasVetApi.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("EliminarMascota")]
         public async Task<IActionResult> EliminarMascota(int Id)
         {
@@ -123,6 +128,7 @@ namespace HuellitasVetApi.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("ActualizarMascota")]
         public async Task<IActionResult> ActualizarMascota(Mascota entidad)
         {

@@ -6,6 +6,7 @@ namespace HuellitasVetWeb.Models
 {
     public interface IMascotaModel
     {
+        Respuesta ConsultarMascotaUsuario();
         Respuesta RegistrarMascota(Mascota entidad);
         Respuesta ConsultarMascotas();
 

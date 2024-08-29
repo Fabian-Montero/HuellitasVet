@@ -1,6 +1,7 @@
 ﻿
 using Dapper;
 using HuellitasVetApi.Entidades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -13,6 +14,47 @@ namespace HuellitasVetApi.Controllers
     [ApiController]
     public class MascotasController(IConfiguration iConfiguration) : ControllerBase
     {
+        [Authorize]
+        [HttpGet]
+        [Route("ConsultarMascotaUsuario")]
+        public async Task<IActionResult> ConsultarMascotaUsuario()
+        {
+            Respuesta resp = new Respuesta();
+
+            if (!int.TryParse(User.Identity?.Name, out int idUsuario))
+            {
+                resp.Codigo = 0;
+                resp.Mensaje = "ID de usuario no válido o no proporcionado.";
+                resp.Contenido = false;
+                return Unauthorized(resp);
+            }
+
+            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var result = await context.QueryAsync<Mascota>(
+                    "ObtenerMascotasPorUsuario",
+                    new { IdUsuario = idUsuario },
+                    commandType: CommandType.StoredProcedure
+                );
+
+                if (result.Any())
+                {
+                    resp.Codigo = 1;
+                    resp.Mensaje = "OK";
+                    resp.Contenido = result;
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Codigo = 0;
+                    resp.Mensaje = "No hay mascotas registradas para este usuario.";
+                    resp.Contenido = false;
+                    return Ok(resp);
+                }
+            }
+        }
+
+
         //Registrar Mascota
         [HttpPost]
         [Route("RegistrarMascota")]
@@ -76,7 +118,7 @@ namespace HuellitasVetApi.Controllers
 
             using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
             {
-                var result = await context.QueryFirstOrDefaultAsync<Mascota>("ConsultarMascota", new {Id }, commandType: CommandType.StoredProcedure);
+                var result = await context.QueryFirstOrDefaultAsync<Mascota>("ConsultarMascota", new { Id }, commandType: CommandType.StoredProcedure);
 
                 if (result != null)
                 {
@@ -109,7 +151,7 @@ namespace HuellitasVetApi.Controllers
                 {
                     resp.Codigo = 1;
                     resp.Mensaje = "OK";
-                    resp.Contenido = result;     
+                    resp.Contenido = result;
                     return Ok(resp);
                 }
                 else

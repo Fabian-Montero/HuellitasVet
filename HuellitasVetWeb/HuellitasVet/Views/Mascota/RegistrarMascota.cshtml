@@ -22,7 +22,7 @@
                             <h3 class="mb-0">Registrar Mascota </h3>
                         </div>
 
-                       
+
 
 
                     </div>
@@ -92,8 +92,13 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-last-name">Usuario</label>
-                                    @Html.DropDownListFor(m => m.UsuarioId, ViewBag.Usuarios as List<SelectListItem>, new { @class = "form-control", @required = "required" })
+                                    @if (Context.Session.GetString("ROL")!.ToString() == "1")
+                                    {
+                                        <label class="form-control-label" for="input-last-name">Usuario</label>
+                                        @Html.DropDownListFor(m => m.UsuarioId, ViewBag.Usuarios as List<SelectListItem>, new { @class = "form-control", @required = "required" })
+                                    }else{
+                                        @Html.HiddenFor(m => m.UsuarioId, new { Value = ViewBag.UsuarioLogueado })
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -102,10 +107,24 @@
                         <input style="background-color:#855CBA; color:white" type="submit" class="btn my-4" value="Registrar">
                     </div>
                 </div>
+                <div class="card-footer text-center py-3" style="background-color: #e9ecef;">
+                    @if (Context.Session.GetString("ROL")!.ToString() == "1")
+                    {
+                        <a href="@Url.Action("ConsultarMascotas", "Mascota")" class="text-muted small">
+                            Volver a mascotas
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("ConsultarMascotaUsuario", "Mascota")" class="text-muted small">
+                            Volver a mascotas
+                        </a>
+                    }
+                </div>
             </div>
         </div>
     </div>
 
-    
+
 }
 

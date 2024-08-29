@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "ConsultarCategorias";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
 
 @if (ViewBag.msj != null)
@@ -24,7 +23,6 @@
                     <tr role="row">
                         <th style="font-size: 12px; font-weight: bold;"><strong>ID</strong></th>
                         <th style="font-size: 12px; font-weight: bold;"><strong>Nombre</strong></th>
-
                         <th style="font-size: 12px; font-weight: bold;"><strong>Acciones</strong></th>
                     </tr>
                 </thead>
@@ -34,12 +32,11 @@
                         <tr class="odd">
                             <td style="vertical-align: middle">@item.IdCategoria</td>
                             <td style="vertical-align: middle">@item.Descripcion</td>
-
                             <td style="text-align: center; vertical-align: middle">
-                                <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 70px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("ActualizarCategoria","Categoria",new { id = item.IdCategoria}))">
+                                <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 70px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("ActualizarCategoria","Categoria",new { id = item.IdCategoria }))">
                                     Editar
                                 </a>
-                                <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 80px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("EliminarCategoria","Categoria",new { id = item.IdCategoria}))">
+                                <a class="btn btn-icon btn-primary btn-deleteCat" style="background-color:#855CBA; color:white; width: 80px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" data-id="@item.IdCategoria" data-url="@(Url.Action("EliminarCategoria", "Categoria", new { id = item.IdCategoria }))" href="#">
                                     Eliminar
                                 </a>
                             </td>
@@ -52,4 +49,5 @@
 </div>
 
 <script src="~/page/jquery/jquery.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/sweetalerts.js"></script>

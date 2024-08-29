@@ -24,16 +24,11 @@ namespace HuellitasVetWeb.Controllers
 
             if (resp.Codigo == 1)
             {
-                TempData["SuccessMessage"] = "El registro fue exitoso.";
-
-                ViewBag.msj = resp.Mensaje;
-
                 return RedirectToAction("ConsultarEspecies", "Especie");
 
             }
             else
             {
-                TempData["ErrorMessage"] = "Hubo un error en el registro.";
 
                 ViewBag.msj = resp.Mensaje;
                

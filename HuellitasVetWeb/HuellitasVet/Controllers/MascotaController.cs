@@ -9,6 +9,30 @@ namespace HuellitasVetWeb.Controllers
 {
     public class MascotaController(IMascotaModel iMascotaModel, IEspecieModel iEspecieModel, IUsuarioModel iUsuarioModel) : Controller
     {
+        //Usuario cliente
+        [HttpGet]
+        public ActionResult ConsultarMascotaUsuario()
+        {
+            var respuesta = iMascotaModel.ConsultarMascotaUsuario();
+
+            if (respuesta.Codigo == 1)
+            {
+                var datos = JsonSerializer.Deserialize<List<Mascota>>((JsonElement)respuesta.Contenido!);
+
+                var especiesResp = iEspecieModel.ConsultarTiposEspecies();
+
+                var listaEspecies = JsonSerializer.Deserialize<List<SelectListItem>>((JsonElement)especiesResp.Contenido!)!;
+
+                var especiesDict = listaEspecies.ToDictionary(e => int.Parse(e.Value), e => e.Text);
+
+                ViewBag.Especies = especiesDict;
+
+                return View(datos);
+            }
+
+            return View(new List<Mascota>());
+        }
+
         //Registrar Mascotas
         [HttpGet]
         [FiltroSesiones]
@@ -16,6 +40,13 @@ namespace HuellitasVetWeb.Controllers
         {
             ConsultarTiposEspecies();
             ConsultarTiposUsuarios();
+            var rolUsuario = HttpContext.Session.GetString("ROL");
+            var usuarioId = HttpContext.Session.GetInt32("IDUSUARIO");
+
+            if (rolUsuario == "2")
+            {
+                ViewBag.UsuarioLogueado = usuarioId;
+            }
 
             return View();
         }
@@ -24,26 +55,37 @@ namespace HuellitasVetWeb.Controllers
         [FiltroSesiones]
         public IActionResult RegistrarMascota(Mascota entidad)
         {
+            var rolUsuario = HttpContext.Session.GetString("ROL");
+
+            if (rolUsuario == "2")
+            {
+                entidad.UsuarioId = HttpContext.Session.GetInt32("IDUSUARIO") ?? 0;
+            }
 
             var resp = iMascotaModel.RegistrarMascota(entidad);
 
             if (resp.Codigo == 1)
             {
-                TempData["SuccessMessage"] = "El registro fue exitoso.";
-
                 ViewBag.msj = resp.Mensaje;
                 ConsultarTiposEspecies();
-                ConsultarTiposUsuarios();
-
-                return RedirectToAction("ConsultarMascotas", "Mascota");
-
+                if (rolUsuario == "1")
+                {
+                    ConsultarTiposUsuarios();
+                    return RedirectToAction("ConsultarMascotas", "Mascota");
+                }
+                else
+                {
+                    return RedirectToAction("ConsultarMascotaUsuario", "Mascota");
+                }
                
             }else {
-                TempData["ErrorMessage"] = "Hubo un error en el registro.";
 
                 ViewBag.msj = resp.Mensaje;
                 ConsultarTiposEspecies();
-                ConsultarTiposUsuarios();
+                if (rolUsuario == "1")
+                {
+                    ConsultarTiposUsuarios();
+                }
 
                 return View();
 
@@ -99,31 +141,59 @@ namespace HuellitasVetWeb.Controllers
         [FiltroSesiones]
         public IActionResult ActualizarMascota(Mascota entidad)
         {
+            var rolUsuario = HttpContext.Session.GetString("ROL");
             var resp = iMascotaModel.ActualizarMascota(entidad);
 
             if (resp.Codigo == 1)
-                return RedirectToAction("ConsultarMascotas", "Mascota");
-
+                if (rolUsuario == "1")
+                {
+                    return RedirectToAction("ConsultarMascotas", "Mascota");
+                }
+                else
+                {
+                    return RedirectToAction("ConsultarMascotaUsuario", "Mascota");
+                }
             ViewBag.msj = resp.Mensaje;
             ConsultarTiposEspecies();
             ConsultarTiposUsuarios();
-            return RedirectToAction("ConsultarMascotas", "Mascota");
+            if (rolUsuario == "1")
+            {
+                return RedirectToAction("ConsultarMascotas", "Mascota");
+            }
+            else
+            {
+                return RedirectToAction("ConsultarMascotaUsuario", "Mascota");
+            }
         }
 
         [HttpGet]
         [FiltroSesiones]
         public IActionResult EliminarMascota(int id)
         {
-
+            var rolUsuario = HttpContext.Session.GetString("ROL");
             var resp = iMascotaModel.EliminarMascota(id);
 
             if (resp.Codigo == 1)
             {
-                return RedirectToAction("ConsultarMascotas", "Mascota");
+                if (rolUsuario == "1")
+                {
+                    return RedirectToAction("ConsultarMascotas", "Mascota");
+                }
+                else
+                {
+                    return RedirectToAction("ConsultarMascotaUsuario", "Mascota");
+                }
             }
             else {
                 ViewBag.MsjPantalla = resp.Mensaje;
-                return RedirectToAction("ConsultarMascotas", "Mascota");
+                if (rolUsuario == "1")
+                {
+                    return RedirectToAction("ConsultarMascotas", "Mascota");
+                }
+                else
+                {
+                    return RedirectToAction("ConsultarMascotaUsuario", "Mascota");
+                }
             }
 
         }

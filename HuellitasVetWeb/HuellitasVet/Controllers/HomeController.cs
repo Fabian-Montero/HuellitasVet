@@ -28,6 +28,8 @@ namespace HuellitasVet.Controllers
                 HttpContext.Session.SetString("NOMBRE", datos!.NombreCompleto!);
                 HttpContext.Session.SetString("ROL", datos!.RolId.ToString());
                 HttpContext.Session.SetInt32("IDUSUARIO", datos!.IdUsuario);
+                HttpContext.Session.SetString("NOMBREROL", datos!.Rol!);
+                
 
                 return RedirectToAction("ConsultarServiciosCliente", "Servicio");
 

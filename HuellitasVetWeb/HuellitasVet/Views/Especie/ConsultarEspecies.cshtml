@@ -39,7 +39,7 @@
                                 <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 70px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("ActualizarEspecie","Especie",new { id = item.IdEspecie}))">
                                     Editar
                                 </a>
-                                <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 80px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("EliminarEspecie","Especie",new { id = item.IdEspecie}))">
+                                <a class="btn btn-icon btn-primary btn-deleteEsp" style="background-color:#855CBA; color:white; width: 80px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("EliminarEspecie","Especie",new { id = item.IdEspecie}))" data-url="@(Url.Action("EliminarEspecie", "Especie", new { id = item.IdEspecie }))">
                                     Eliminar
                                 </a>
                             </td>
@@ -52,3 +52,5 @@
 </div>
 
 <script src="~/page/jquery/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/sweetalerts.js"></script>

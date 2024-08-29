@@ -4,18 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+@Html.HiddenFor(m => m.IdUsuario)
+@Html.HiddenFor(m => m.RolId)
 <div class="d-flex justify-content-center align-items-center mt-5" style="min-height: 100vh;">
     <div class="col-xl-8">
+
+
         @using (Html.BeginForm("MiCuenta", "Usuario"))
         {
             <div class="card mb-3">
                 
-                @if (ViewBag.msj != null)
-                {
-                    <div class="alert alert-primary text-center" role="alert" style="width: 100%; height: 40px;">
-                        @ViewBag.msj
-                    </div>
-                }
+               
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-8">
@@ -25,20 +25,9 @@
                 </div>
 
                 <div class="card-body">
-                    @{
-                        if (TempData["SuccessMessage"] != null)
-                        {
-                            <div class="alert alert-success">
-                                @TempData["SuccessMessage"]
-                            </div>
-                        }
-                        if (TempData["ErrorMessage"] != null)
-                        {
-                            <div class="alert alert-danger">
-                                @TempData["ErrorMessage"]
-                            </div>
-                        }
-                    }
+
+                    
+
 
                     <h6 class="heading-small text-muted mb-4">Información</h6>
                     <div class="pl-lg-4">

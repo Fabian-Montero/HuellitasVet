@@ -5,6 +5,7 @@ using System.Text.Json;
 
 namespace HuellitasVetWeb.Controllers
 {
+   
     public class CitasController(IServicioModel iserviciomodel, ICitaModel Icitamodel,
         IMascotaModel imascotamodel) : Controller
     {
@@ -102,21 +103,40 @@ namespace HuellitasVetWeb.Controllers
 
             if (resp.Codigo == 1)
             {
-                TempData["SuccessMessage"] = "El registro fue exitoso.";
+                
 
                 ViewBag.msj = resp.Mensaje;
 
-                return RedirectToAction("Citas", "RegistrarCita");
+                return RedirectToAction("HistorialCitas", "Citas");
 
             }
             else
             {
-                TempData["ErrorMessage"] = "Hubo un error en el registro.";
+                
 
                 ViewBag.msj = resp.Mensaje;
 
                 return View(entidad);
 
+            }
+        }
+
+        public IActionResult HistorialCitas()
+
+
+        {   int idsuario= HttpContext.Session.GetInt32("IDUSUARIO")!.Value;
+            var resp = Icitamodel.ConsultarCitas(idsuario);
+
+            if (resp.Codigo == 1)
+            {
+                var datos = JsonSerializer.Deserialize<List<Cita>>((JsonElement)resp.Contenido!);
+                ViewBag.MsjPantalla = resp.Mensaje;
+                return View(datos);
+            }
+            else
+            {
+                ViewBag.MsjPantalla = resp.Mensaje;
+                return View();
             }
         }
 

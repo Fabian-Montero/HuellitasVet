@@ -21,5 +21,11 @@ namespace HuellitasVetWeb.Entidades
 
         public int IdUsuario { get; set; }
 
+        public string FechaCita { get; set; }
+
+        public string Mascota { get; set; }
+
+        public string Servicio { get; set; }
+
     }
 }

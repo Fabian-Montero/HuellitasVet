@@ -74,6 +74,30 @@ namespace HuellitasVetWeb.Controllers
             
         }
 
+        [HttpPost]
+        [FiltroSesiones]
+        public IActionResult MiCuenta(Usuario entidad)
+        {
+
+
+            long? IDUSUARIO = HttpContext.Session.GetInt32("IDUSUARIO");
+
+            
+           
+            
+                var resp = iUsuarioModel.ActualizarUsuario(entidad);
+                if (resp.Codigo == 1)
+                   
+                ViewBag.msj = resp.Mensaje;
+               
+                return RedirectToAction("MiCuenta", "Usuario");
+
+           
+            
+            
+
+        }
+
         [HttpGet]
         [FiltroSesiones]
         public IActionResult EliminarUsuario(int id)

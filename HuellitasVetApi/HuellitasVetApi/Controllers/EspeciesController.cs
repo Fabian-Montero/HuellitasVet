@@ -62,7 +62,7 @@ namespace HuellitasVetApi.Controllers
                 else
                 {
                     resp.Codigo = 0;
-                    resp.Mensaje = "La información de la especie ya se encuentra registrada";
+                    resp.Mensaje = "Error en registrar la especie";
                     resp.Contenido = false;
                     return Ok(resp);
                 }

@@ -66,8 +66,6 @@ namespace HuellitasVetWeb.Controllers
 
             if (resp.Codigo == 1)
             {
-                TempData["SuccessMessage"] = "El registro fue exitoso.";
-
                 ViewBag.msj = resp.Mensaje;
                 ConsultarTiposEspecies();
                 if (rolUsuario == "1")
@@ -81,7 +79,6 @@ namespace HuellitasVetWeb.Controllers
                 }
                
             }else {
-                TempData["ErrorMessage"] = "Hubo un error en el registro.";
 
                 ViewBag.msj = resp.Mensaje;
                 ConsultarTiposEspecies();

@@ -1,0 +1,70 @@
+﻿@model List<HuellitasVetWeb.Entidades.Servicio>
+
+@{
+    ViewData["Title"] = "Servicios Disponibles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5 text-center">
+    <h6 class="text-uppercase text-muted">Huellitas Vet</h6>
+    <h2 class="display-4 font-weight-bold">Servicios</h2>
+    <p class="lead text-muted">
+        Explora nuestros servicios diseñados para brindarle a tu mascota el mejor cuidado. En Huellitas Vet, ofrecemos una variedad de servicios de alta calidad, desde consultas veterinarias hasta servicios de grooming, siempre con el compromiso de asegurar el bienestar de tu amigo peludo.
+    </p>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        @foreach (var servicio in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img class="card-img-top open-modal" src="@servicio.RutaImagen" alt="@servicio.Descripcion" style="height: 290px; object-fit: cover; cursor:pointer;" data-src="@servicio.RutaImagen" data-description="@servicio.Descripcion" data-price="@String.Format("{0:C}", servicio.Precio)">
+                    <div class="card-body text-center">
+                        <h5 class="card-title font-weight-bold">@servicio.Descripcion</h5>
+                        <h4 class="text-primary font-weight-bold">@String.Format("{0:C}", servicio.Precio)</h4>
+                        <button type="button" class="btn btn-primary mt-3 open-modal" style="background-color:#855CBA; color:white;" data-src="@servicio.RutaImagen" data-description="@servicio.Descripcion" data-price="@String.Format("{0:C}", servicio.Precio)">Ver más detalles</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="modal fade" id="serviceModal" tabindex="-1" role="dialog" aria-labelledby="serviceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="serviceModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" class="img-fluid mb-4" style="max-height: 560px;" alt="Imagen del servicio">
+                <h4 id="modalPrice" class="text-primary font-weight-bold"></h4>
+                <p id="modalDescription"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('.open-modal').on('click', function () {
+            var src = $(this).data('src');
+            var description = $(this).data('description');
+            var price = $(this).data('price');
+
+            $('#modalImage').attr('src', src);
+            $('#serviceModalLabel').text(description);
+            $('#modalPrice').text(price);
+            $('#modalDescription').text(description);
+
+            $('#serviceModal').modal('show');
+        });
+    });
+</script>

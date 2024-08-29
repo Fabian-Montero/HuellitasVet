@@ -1,16 +1,16 @@
-﻿@model List<HuellitasVetWeb.Entidades.Servicio>
-    
+﻿@model List<HuellitasVetWeb.Entidades.Producto>
+
 
 @{
 
-    ViewData["Title"] = "Consultar Servicios";
+    ViewData["Title"] = "Consultar Productos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container-fluid" style="margin-top: 50px;">
     <div class="card">
         <div class="card-header">
-            <h3 class="mb-0">Lista de Servicios</h3>
+            <h3 class="mb-0">Lista de Productos</h3>
         </div>
         <div class="card-body" style="padding-left: 15px; padding-right: 15px;">
             <div class="table-responsive">
@@ -19,6 +19,7 @@
                         <tr role="row">
                             <th style="font-size: 12px; font-weight: bold;"><strong>Nombre</strong></th>
                             <th style="font-size: 12px; font-weight: bold;"><strong>Imagen</strong></th>
+                            <th style="font-size: 12px; font-weight: bold;"><strong>Categoría</strong></th>
                             <th style="font-size: 12px; font-weight: bold;"><strong>Precio</strong></th>
                             <th style="font-size: 12px; font-weight: bold;"><strong>Acciones</strong></th>
                         </tr>
@@ -32,13 +33,14 @@
                                 <td style="vertical-align: middle; text-align:center">
                                     <img style="width: 230px; height: 230px;" src="@item.RutaImagen"></img>
                                 </td>
+                                <td style="vertical-align: middle">@item.NombreCategoria</td>
                                 <td style="vertical-align: middle">@item.Precio</td>
-                                
+
                                 <td style="text-align: center; vertical-align: middle">
-                                    <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 70px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("ActualizarServicio","Servicio",new { id = item.IdServicio}))">
-                                        Editar 
+                                    <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 70px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("ActualizarProducto","Producto",new { id = item.IdProducto}))">
+                                        Editar
                                     </a>
-                                    <a class="btn btn-icon btn-primary btn-deleteServ" style="background-color:#855CBA; color:white; width: 80px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("EliminarServicio","Servicio",new { id = item.IdServicio, nombre = item.Descripcion}))" data-url="@(Url.Action("EliminarServicio", "Servicio", new { id = item.IdServicio }))">
+                                    <a class="btn btn-icon btn-primary" style="background-color:#855CBA; color:white; width: 80px; height: 30px; display: inline-flex; align-items: center; justify-content: center;" type="button" href="@(Url.Action("EliminarProducto","Producto",new { id = item.IdProducto}))">
                                         Eliminar
                                     </a>
                                 </td>
@@ -52,5 +54,3 @@
 </div>
 
 <script src="~/page/jquery/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="~/js/sweetalerts.js"></script>

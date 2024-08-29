@@ -1,12 +1,16 @@
 ﻿using HuellitasVetWeb.Entidades;
+using System.Net.Http.Headers;
+using System.Security.Policy;
+using static System.Net.WebRequestMethods;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using System.Text.Json;
 
+
 namespace HuellitasVetWeb.Models
 {
-    public class ServicioModel(HttpClient httpClient, IConfiguration iConfiguration) : IServicioModel
+    public class ServicioModel(HttpClient httpClient, IConfiguration iConfiguration, IHttpContextAccessor iAccesor) : IServicioModel
     {
 
         public Respuesta ConsultarServicios()
@@ -15,7 +19,9 @@ namespace HuellitasVetWeb.Models
             using (httpClient)
             {
                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Servicio/ConsultarServicios";
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
 
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 var resp = httpClient.GetAsync(url).Result;
 
                 if (resp.IsSuccessStatusCode)
@@ -58,21 +64,21 @@ namespace HuellitasVetWeb.Models
 
 
 
-        public Respuesta ConsultarServicio(int id)
-        {
-            Respuesta respuesta = new Respuesta();
-            using (httpClient = new HttpClient())
-            {
-                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Servicio/ConsultarServicio?Id=" + id;
+//         public Respuesta ConsultarServicio(int id)
+//         {
+//             Respuesta respuesta = new Respuesta();
+//             using (httpClient = new HttpClient())
+//             {
+//                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Servicio/ConsultarServicio?Id=" + id;
 
-                var resp = httpClient.GetAsync(url).Result;
+//                 var resp = httpClient.GetAsync(url).Result;
 
-                if (resp.IsSuccessStatusCode)
-                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
-                else
-                    return new Respuesta();
-            }
-        }
+//                 if (resp.IsSuccessStatusCode)
+//                     return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+//                 else
+//                     return new Respuesta();
+//             }
+//         }
 
 
 
@@ -82,6 +88,10 @@ namespace HuellitasVetWeb.Models
             using (httpClient = new HttpClient())
             {
                 var url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Servicio/RegistrarServicio";
+
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 JsonContent body = JsonContent.Create(ent);
 
@@ -105,6 +115,10 @@ namespace HuellitasVetWeb.Models
             using (httpClient = new HttpClient())
             {
                 var url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Servicio/ActualizarRutaImagen";
+
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 JsonContent body = JsonContent.Create(ent);
 
@@ -131,6 +145,10 @@ namespace HuellitasVetWeb.Models
 
                 string url = iConfiguration.GetSection("LLaves:UrlApi").Value + "Servicio/EliminarServicio?Id=" + ServicioId;
 
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 var resp = httpClient.DeleteAsync(url).Result;
 
                 if (resp.IsSuccessStatusCode)
@@ -144,7 +162,26 @@ namespace HuellitasVetWeb.Models
             }
         }
 
-        
+        public Respuesta ConsultarServicio(int id)
+        {
+            Respuesta respuesta = new Respuesta();
+            using (httpClient = new HttpClient())
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Servicio/ConsultarServicio?Id=" + id;
+
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                var resp = httpClient.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
+            }
+        }
+
 
         public Respuesta ActualizarServicio(Servicio ent)
         {
@@ -153,6 +190,10 @@ namespace HuellitasVetWeb.Models
             using (httpClient = new HttpClient())
             {
                 var url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Servicio/ActualizarServicio";
+
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 JsonContent body = JsonContent.Create(ent);
 

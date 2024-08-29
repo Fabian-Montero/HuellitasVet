@@ -1,7 +1,9 @@
 ﻿using HuellitasVetWeb.Entidades;
+using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Net.Http.Headers;
 using System.Text.Json;
+
 
 namespace HuellitasVetWeb.Models
 {
@@ -27,6 +29,9 @@ namespace HuellitasVetWeb.Models
             using (httpClient)
             {
                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/RegistrarMascota";
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 JsonContent body = JsonContent.Create(entidad);
                 var resp = httpClient.PostAsync(url, body).Result;
 
@@ -41,6 +46,9 @@ namespace HuellitasVetWeb.Models
             using (httpClient)
             {
                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/ConsultarMascotas";
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var resp = httpClient.GetAsync(url).Result;
 
@@ -56,6 +64,9 @@ namespace HuellitasVetWeb.Models
             using (httpClient)
             {
                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/ConsultarMascota?Id=" + Id;
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var resp = httpClient.GetAsync(url).Result;
 
@@ -71,6 +82,9 @@ namespace HuellitasVetWeb.Models
             using (httpClient)
             {
                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/EliminarMascota?Id=" + Id;
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var resp = httpClient.DeleteAsync(url).Result;
 
@@ -86,6 +100,9 @@ namespace HuellitasVetWeb.Models
             using (httpClient)
             {
                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Mascotas/ActualizarMascota";
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 JsonContent body = JsonContent.Create(entidad);
                 var resp = httpClient.PutAsync(url, body).Result;
 

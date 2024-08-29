@@ -4,13 +4,16 @@ using System.Net.Http.Headers;
 
 namespace HuellitasVetWeb.Models
 {
-    public class UsuarioModel(HttpClient httpClient, IConfiguration iConfiguration, IHttpContextAccessor iContextAccesor) : IUsuarioModel
+    public class UsuarioModel(HttpClient httpClient, IConfiguration iConfiguration, IHttpContextAccessor iAccesor) : IUsuarioModel
     {
         public Respuesta ConsultarUsuarios()
         {
             using (httpClient)
             {
                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/ConsultarUsuarios";
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var resp = httpClient.GetAsync(url).Result;
 
@@ -100,6 +103,10 @@ namespace HuellitasVetWeb.Models
             using (httpClient)
             {
                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/ActualizarUsuario";
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 JsonContent body = JsonContent.Create(entidad);
                 var resp = httpClient.PutAsync(url, body).Result;
 
@@ -115,6 +122,9 @@ namespace HuellitasVetWeb.Models
             using (httpClient)
             {
                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/EliminarUsuario?Id=" + Id;
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var resp = httpClient.DeleteAsync(url).Result;
 
@@ -156,7 +166,7 @@ namespace HuellitasVetWeb.Models
             using (httpClient)
             {
                 string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Usuarios/CambiarContrasenna";
-                string token = iContextAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
+                string token = iAccesor.HttpContext!.Session.GetString("TOKEN")!.ToString();
 
                 JsonContent body = JsonContent.Create(ent);
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

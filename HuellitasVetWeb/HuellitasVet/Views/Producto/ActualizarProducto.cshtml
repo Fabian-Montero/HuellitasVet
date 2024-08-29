@@ -1,6 +1,6 @@
-﻿@model HuellitasVetWeb.Entidades.Servicio
+﻿@model HuellitasVetWeb.Entidades.Producto
 @{
-    ViewData["Title"] = "Agregar Servicio";
+    ViewData["Title"] = "Actualizar Producto";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,7 +11,7 @@
     </div>
 }
 
-@using (Html.BeginForm("AgregarServicio", "Servicio", FormMethod.Post, new {enctype = "multipart/form-data"}))
+@using (Html.BeginForm("ActualizarProducto", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="col-xl-8">
@@ -19,7 +19,7 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h3 class="mb-0">Registrar Servicio </h3>
+                            <h3 class="mb-0">Actualizar Producto </h3>
                         </div>
 
                     </div>
@@ -41,14 +41,14 @@
                             </div>
                         }
                     }
-
-                    <h6 class="heading-small text-muted mb-4">Información</h6>
+                    @Html.HiddenFor(m => m.IdProducto)
+                    @Html.HiddenFor(m => m.RutaImagen)
                     <div class="pl-lg-4">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-username">Nombre del servicio</label>
-                                    @Html.TextBoxFor(m => m.Descripcion, new { @class = "form-control", @placeholder = "Ingrese el nombre del servicio", @required = "required" })
+                                    <label class="form-control-label" for="input-username">Nombre del producto</label>
+                                    @Html.TextBoxFor(m => m.Descripcion, new { @class = "form-control", @placeholder = "Ingrese el nombre del producto", @required = "required" })
                                 </div>
                             </div>
                         </div>
@@ -61,21 +61,28 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
+                                    <label class="form-control-label" for="input-email">Categoría</label>
+                                    @Html.DropDownListFor(m => m.CategoriaId, ViewBag.TiposCategorias as List<SelectListItem>, new { @class = "form-control", @required = "required", })
+                                </div>
+                            </div>
+                            <div class="col-lg-6 ">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="imagen-actual">Imagen Actual</label>
+                                    <img class="form-control" src="@ViewBag.RutaImagen" style="width: 250px; height: 250px; ">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
                                     <label class="form-control-label" for="imagen">Imagen</label>
-                                    <input type="file" id="ImagenServicio" name="ImagenServicio" class="form-control form-control-user" required />
-                                    
+                                    <input type="file" id="ImagenProducto" name="ImagenProducto" class="form-control form-control-user" />
+
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center mt-4">
-                        <input style="background-color:#855CBA; color:white" type="submit" class="btn my-4" value="Registrar">
+                        <input style="background-color:#855CBA; color:white" type="submit" class="btn my-4" value="Actualizar">
                     </div>
-                </div>
-                <div class="card-footer text-center py-3" style="background-color: #e9ecef;">
-                    <a href="@Url.Action("ConsultarServicios", "Servicio")" class="text-muted small">
-                        Volver a servicios
-                    </a>
                 </div>
             </div>
         </div>

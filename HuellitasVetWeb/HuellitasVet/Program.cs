@@ -17,8 +17,10 @@ builder.Services.AddScoped<IRolesModel, RolesModel>();
 builder.Services.AddScoped<IServicioModel, ServicioModel>();
 builder.Services.AddScoped<IFirebaseModel, FirebaseModel>();
 builder.Services.AddScoped<ICategoriaModel, CategoriaModel>();
-builder.Services.AddScoped<IServicioModel, ServicioModel>();
+builder.Services.AddScoped<IProductoModel, ProductoModel>();
+// builder.Services.AddScoped<IServicioModel, ServicioModel>();
 builder.Services.AddScoped<ICitaModel, CitaModel>();
+
 
 
 

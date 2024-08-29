@@ -15,7 +15,7 @@ namespace HuellitasVetApi.Controllers
     public class ServicioController(IConfiguration iConfiguration) : ControllerBase
     {
         [HttpGet]
-
+        [Authorize]
         [Route("ObtenerListadoServicios")]
         public async Task<IActionResult> ObtenerListadoServicios()
         {
@@ -71,39 +71,39 @@ namespace HuellitasVetApi.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("ConsultarServicio")]
-        public async Task<IActionResult> ConsultarUsuario(int Id)
-        {
+//         [HttpGet]
+//         [Route("ConsultarServicio")]
+//         public async Task<IActionResult> ConsultarUsuario(int Id)
+//         {
 
-            Respuesta resp = new Respuesta();
+//             Respuesta resp = new Respuesta();
 
-            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
-            {
+//             using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+//             {
 
-                var result = await context.QueryFirstOrDefaultAsync<Servicio>("ConsultarSerVicio", new { Id }, commandType: CommandType.StoredProcedure);
+//                 var result = await context.QueryFirstOrDefaultAsync<Servicio>("ConsultarSerVicio", new { Id }, commandType: CommandType.StoredProcedure);
 
-                if (result != null)
-                {
-                    resp.Codigo = 1;
-                    resp.Mensaje = "OK";
+//                 if (result != null)
+//                 {
+//                     resp.Codigo = 1;
+//                     resp.Mensaje = "OK";
 
               
                     
 
-                    resp.Contenido = result;
-                    return Ok(resp);
-                }
-                else
-                {
-                    resp.Codigo = 0;
+//                     resp.Contenido = result;
+//                     return Ok(resp);
+//                 }
+//                 else
+//                 {
+//                     resp.Codigo = 0;
 
                    
-                    resp.Contenido = false;
-                    return Ok(resp);
-                }
-            }
-        }
+//                     resp.Contenido = false;
+//                     return Ok(resp);
+//                 }
+//             }
+//         }
 
         [HttpPost]
         [Route("RegistrarServicio")]
@@ -184,7 +184,34 @@ namespace HuellitasVetApi.Controllers
             }
         }
 
-        
+
+        [HttpGet]
+        [Route("ConsultarServicio")]
+        public async Task<IActionResult> ConsultarServicio(int Id)
+        {
+
+            Respuesta resp = new Respuesta();
+
+            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var result = await context.QueryFirstOrDefaultAsync<Servicio>("ConsultarServicio", new { Id}, commandType: CommandType.StoredProcedure);
+
+                if (result != null)
+                {
+                    resp.Codigo = 1;
+                    resp.Mensaje = "";
+                    resp.Contenido = result;
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Codigo = 0;
+                    resp.Mensaje = "No se ha encontrado el servicio solicitado";
+                    resp.Contenido = false;
+                    return Ok(resp);
+                }
+            }
+        }
 
         [HttpPut]
         [Route("ActualizarServicio")]

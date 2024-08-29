@@ -31,7 +31,7 @@ namespace HuellitasVet.Controllers
                 HttpContext.Session.SetString("NOMBREROL", datos!.Rol!);
                 
 
-                return RedirectToAction("Inicio", "Home");
+                return RedirectToAction("ConsultarServiciosCliente", "Servicio");
 
             }
             else

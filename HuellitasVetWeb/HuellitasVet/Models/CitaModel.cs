@@ -36,5 +36,23 @@ namespace HuellitasVetWeb.Models
                     return new Respuesta();
             }
         }
+
+
+        public Respuesta ConsultarCitas(int UsuarioId)
+        {
+            Respuesta respuesta = new Respuesta();
+            using (httpClient)
+            {
+                string url = iConfiguration.GetSection("Llaves:UrlApi").Value + "Citas/ObtenerCitas?UsuarioId="+UsuarioId;
+
+                var resp = httpClient.GetAsync(url).Result;
+
+                if (resp.IsSuccessStatusCode)
+                    return resp.Content.ReadFromJsonAsync<Respuesta>().Result!;
+                else
+                    return new Respuesta();
+            }
+        }
+
     }
 }

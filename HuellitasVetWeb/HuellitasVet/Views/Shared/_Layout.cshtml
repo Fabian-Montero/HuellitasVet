@@ -1,5 +1,6 @@
 ﻿@{
     var nombre = Context.Session.GetString("NOMBRE");
+    var rol = Context.Session.GetString("NOMBREROL");
 }
 
 <!DOCTYPE html>
@@ -138,40 +139,59 @@
                                 <i class='fas fa-clipboard-list'></i>
                                 <span class="nav-link-text">Citas</span>
                             </a>
-                            <div class="collapse" id="navbar-categoria">
+                            <div class="collapse" id="navbar-cita">
                                 <ul class="nav nav-sm flex-column">
+
+                                     @if (Context.Session.GetString("ROL")!.ToString() == "2")
+                        {
                                     <li class="nav-item">
-                                        <a href="@Url.Action("RegistrarCita","Citas")" class="nav-link">Registrar Categoría</a>
+                                        <a href="@Url.Action("RegistrarCita","Citas")" class="nav-link">Registrar Cita</a>
                                     </li>
+
+                                    }
+
+                                    @if (Context.Session.GetString("ROL")!.ToString() == "2" || Context.Session.GetString("ROL")!.ToString() == "1")
+
+                                    {
                                     <li class="nav-item">
-                                        <a href="@Url.Action("HistorialCita","Citas")" class="nav-link">Consultar Categoría</a>
+                                        <a href="@Url.Action("HistorialCitas","Citas")" class="nav-link">Consultar Citas</a>
                                     </li>
+
+
+
+                                    }
                                 </ul>
                             </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="#servicios" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="servicios">
-                                <i class="ni ni-favourite-28 text-overflow"></i>
+                                <i class="fas fa-list"></i>
                                 <span class="nav-link-text">Servicios</span>
                             </a>
                             <div class="collapse" id="servicios">
                                 <ul class="nav nav-sm flex-column">
+
+                                    
+                                     @if (Context.Session.GetString("ROL")!.ToString() == "1")
+                                    {
                                     <li class="nav-item">
                                         <a href="@Url.Action("AgregarServicio","Servicio")" class="nav-link">Registrar Servicio</a>
                                     </li>
+
+                                    }
+
+                                    @if (Context.Session.GetString("ROL")!.ToString() == "2" || Context.Session.GetString("ROL")!.ToString() == "1")
+                                    {
                                     <li class="nav-item">
                                         <a href="@Url.Action("ConsultarServicios","Servicio")" class="nav-link">Consultar Servicios</a>
                                     </li>
+
+                                    }
                                 </ul>
                             </div>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="examples/tables.html">
-                                <i class="ni ni-single-copy-04 text-purple"></i>
-                                <span class="nav-link-text">Informes</span>
-                            </a>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -206,14 +226,23 @@
                                     <span class="avatar avatar-sm rounded-circle">
                                         <img alt="Image placeholder" src="~/assets/img/brand/usuario.png">
                                     </span>
-                                    <div class="media-body  ml-2  d-none d-lg-block">
-                                        <span class="mb-0 text-sm  font-weight-bold">
+
+                                    <div class="media-body ml-2 d-none d-lg-block">
+                                        <div class="mb-0 text-sm font-weight-bold">
                                             @if (!string.IsNullOrEmpty(nombre))
                                             {
                                                 @nombre
                                             }
-                                        </span>
+                                        </div>
+
+                                        <div class="mb-0 text-sm font-weight-bold mt-1">
+                                            @if (!string.IsNullOrEmpty(rol))
+                                            {
+                                                @rol
+                                            }
+                                        </div>
                                     </div>
+                                    
                                 </div>
                             </a>
                             <div class="dropdown-menu  dropdown-menu-right ">

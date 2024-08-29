@@ -1,0 +1,53 @@
+﻿@model List<HuellitasVetWeb.Entidades.Cita>
+
+@{
+    ViewData["Title"] = "HistorialCitas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@if (ViewBag.msj != null)
+{
+    <div class="alert alert-primary" role="alert" style="width: 365px; height: 80px;">
+        @ViewBag.msj
+    </div>
+}
+
+<div class="container" style="margin-top: 50px;">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="mb-0">Lista de Especies</h3>
+        </div>
+        <div class="card-body" style="padding-left: 15px; padding-right: 15px;">
+            <table id="tabla" class="table table-bordered dataTable" style="width: 100%;">
+                <thead>
+                    <tr role="row">
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Fecha</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Hora</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Mascota</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Servicio</strong></th>
+
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="odd">
+                            <td style="vertical-align: middle">@item.FechaCita</td>
+                            <td style="vertical-align: middle">@item.hora</td>
+                            <td style="vertical-align: middle">@item.Mascota</td>
+                            <td style="vertical-align: middle">@item.Servicio</td>
+
+                          
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="~/page/jquery/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/sweetalerts.js"></script>

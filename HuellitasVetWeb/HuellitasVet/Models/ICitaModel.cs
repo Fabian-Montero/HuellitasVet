@@ -10,6 +10,8 @@ namespace HuellitasVetWeb.Models
 
         Respuesta RegistrarCita(Cita entidad);
 
+        Respuesta ConsultarCitas(int IdUsuario);
+
 
 
     }

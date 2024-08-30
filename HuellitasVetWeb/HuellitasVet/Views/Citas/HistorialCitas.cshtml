@@ -16,16 +16,19 @@
 <div class="container" style="margin-top: 50px;">
     <div class="card">
         <div class="card-header">
-            <h3 class="mb-0">Lista de Especies</h3>
+            <h3 class="mb-0">Lista de Citas</h3>
         </div>
         <div class="card-body" style="padding-left: 15px; padding-right: 15px;">
             <table id="tabla" class="table table-bordered dataTable" style="width: 100%;">
                 <thead>
                     <tr role="row">
                         <th style="font-size: 12px; font-weight: bold;"><strong>Fecha</strong></th>
-                        <th style="font-size: 12px; font-weight: bold;"><strong>Hora</strong></th>
-                        <th style="font-size: 12px; font-weight: bold;"><strong>Mascota</strong></th>
                         <th style="font-size: 12px; font-weight: bold;"><strong>Servicio</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Mascota</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Cliente</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Sub Total</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Impuesto</strong></th>
+                        <th style="font-size: 12px; font-weight: bold;"><strong>Total</strong></th>
 
                        
                     </tr>
@@ -35,9 +38,12 @@
                     {
                         <tr class="odd">
                             <td style="vertical-align: middle">@item.FechaCita</td>
-                            <td style="vertical-align: middle">@item.hora</td>
-                            <td style="vertical-align: middle">@item.Mascota</td>
                             <td style="vertical-align: middle">@item.Servicio</td>
+                            <td style="vertical-align: middle">@item.Mascota</td>
+                            <td style="vertical-align: middle">@item.NombreCompleto</td>
+                            <td style="vertical-align: middle">@item.SubTotal</td>
+                            <td style="vertical-align: middle">@item.Impuesto</td>
+                            <td style="vertical-align: middle">@item.Total</td>
 
                           
                         </tr>

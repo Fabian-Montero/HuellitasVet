@@ -189,6 +189,42 @@ namespace HuellitasVetApi.Controllers
             }
         }
 
+        [HttpPut]
+        [Authorize]
+        [Route("ActualizarUsuarioPerfil")]
+        public async Task<IActionResult> ActualizarUsuarioPerfil(Usuario entidad)
+        {
+            Respuesta resp = new Respuesta();
+
+            using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+            {
+                var result = await context.ExecuteAsync("ActualizarUsuarioPerfil", new
+                {
+                    entidad.NombreCompleto,
+                    entidad.Identificacion,
+                    entidad.Correo,
+                    entidad.Telefono,
+                    entidad.Direccion,
+                    entidad.IdUsuario
+                }, commandType: CommandType.StoredProcedure);
+
+                if (result > 0)
+                {
+                    resp.Codigo = 1;
+                    resp.Mensaje = "OK";
+                    resp.Contenido = true;
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Codigo = 0;
+                    resp.Mensaje = "Error al actualizar el usuario";
+                    resp.Contenido = false;
+                    return Ok(resp);
+                }
+            }
+        }
+
 
         //Consultar Tipos Usuarios
         [HttpGet]
